@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Nololiyt.BlazorIndexedDb.Extensions;
 using Nololiyt.IndexedDbSharp.Raw.CSharp;
 using TestBlazorWebAssembly;
 
@@ -15,7 +16,7 @@ namespace TestBlazorWebAssembly
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
-            builder.Services.AddScoped<Alerter>();
+            builder.Services.AddIndexedDbSharpRaw();
 
             await builder.Build().RunAsync();
         }

@@ -1,4 +1,9 @@
-﻿export function alert(message: string)
+﻿import { WrappedIdbFactory } from "./Wrapping/WrappedIdbFactory.js"
+
+export function newWrappedIdbFactory(): WrappedIdbFactory | null
 {
-    window.alert(message);
+    if (window.indexedDB)
+        return new WrappedIdbFactory(window.indexedDB);
+    else
+        return null;
 }

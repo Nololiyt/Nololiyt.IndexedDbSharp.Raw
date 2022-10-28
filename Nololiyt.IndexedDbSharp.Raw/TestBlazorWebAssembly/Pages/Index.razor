@@ -9,13 +9,13 @@
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 
-@inject Nololiyt.IndexedDbSharp.Raw.CSharp.Alerter Alerter
+@inject Nololiyt.IndexedDbSharp.Raw.CSharp.IIndexedDbSharpRawEntry IndexedDb
 @code {
     private int currentCount = 0;
 
     private async Task IncrementCount()
     {
         currentCount++;
-        await Alerter.Alert(currentCount.ToString());
+        await using var factory = await IndexedDb.NewWrappedIdbFactory();
     }
 }
