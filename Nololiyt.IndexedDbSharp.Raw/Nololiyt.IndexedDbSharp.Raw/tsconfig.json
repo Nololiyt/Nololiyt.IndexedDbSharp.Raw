@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "outDir": "./wwwroot/generated/scripts",
+    "moduleResolution": "Node",
+    "strict": true,
+    "target": "ES6"
+  },
+  "include": [
+    "./Typescripts"
+  ]
+}
