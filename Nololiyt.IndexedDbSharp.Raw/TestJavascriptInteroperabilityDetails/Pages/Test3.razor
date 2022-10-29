@@ -1,0 +1,52 @@
+﻿@page "/test3"
+
+<div>@value</div>
+
+<button @onclick="GetByProperty">GetByProperty</button>
+<button @onclick="GetByMethod">GetByMethod</button>
+
+@inject ILogger<Test2> Logger
+@code
+{
+    private string value = "click a button";
+    private async Task GetByProperty()
+    {
+        await using var module = await GetModule();
+        await using var instance = await module.InvokeAsync<IJSObjectReference>("newInstance");
+        try
+        {
+            var value = await instance.InvokeAsync<double>("testProperty");
+            this.value = value.ToString();
+        }
+        catch
+        {
+            value = "cannot get by property";
+        }
+    }
+    private async Task GetByMethod()
+    {
+        await using var module = await GetModule();
+        await using var instance = await module.InvokeAsync<IJSObjectReference>("newInstance");
+        try
+        {
+            var value = await instance.InvokeAsync<double>("testMethod");
+            this.value = value.ToString();
+        }
+        catch
+        {
+            value = "cannot get by method";
+        }
+    }
+}
+
+<PageTitle>Test</PageTitle>
+@inject IJSRuntime js
+@code {
+    private async Task<IJSObjectReference> GetModule()
+    {
+        var typeName = this.GetType().Name;
+        return await js.InvokeAsync<IJSObjectReference>(
+            "import",
+            $"./generated/scripts/{typeName}.js");
+    }
+}
