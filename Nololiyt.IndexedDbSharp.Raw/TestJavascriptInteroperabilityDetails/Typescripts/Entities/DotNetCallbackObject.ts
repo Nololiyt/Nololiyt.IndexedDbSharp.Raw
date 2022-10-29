@@ -6,7 +6,7 @@ export interface DotNetCallbackObject
     callbackMethod: string;
 }
 
-export function invokeDotNetCallback(callbackObject: DotNetCallbackObject, ...args: any[])
+export function InvokeDotNetCallback(callbackObject: DotNetCallbackObject, ...args: any[])
 {
     callbackObject.object.invokeMethodAsync(callbackObject.callbackMethod, ...args);
 }

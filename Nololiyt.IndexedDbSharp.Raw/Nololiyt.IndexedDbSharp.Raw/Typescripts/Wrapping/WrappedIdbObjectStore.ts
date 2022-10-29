@@ -1,5 +1,5 @@
-﻿import { IdbKeyRangeInfo } from "../Entities/IdbKeyRangeInfo.js";
-import { IdbValidKeyInterop, toIdbValidKey } from "../Entities/IdbValidKeyInterop.js";
+﻿import { convertToIdbKeyRange, IdbKeyRangeInfo, isIdbKeyRangeInfo } from "../Entities/IdbKeyRangeInfo.js";
+import { IdbValidKeyInterop, convertToIdbValidKey } from "../Entities/IdbValidKeyInterop.js";
 import { WrappedIdbIndex } from "./WrappedIdbIndex.js";
 import { WrappedIdbRequest, WrappedIdbRequestOfAny, WrappedIdbRequestOfAnyArray, WrappedIdbRequestOfIdbCursorOrNull, WrappedIdbRequestOfIdbCursorWithValueOrNull, WrappedIdbRequestOfIdbValidKey, WrappedIdbRequestOfIdbValidKeyArray, WrappedIdbRequestOfIdbValidKeyOrUndefined, WrappedIdbRequestOfNumber, WrappedIdbRequestOfUndefined } from "./WrappedIdbRequests.js";
 import { WrappedIdbTransaction } from "./WrappedIdbTransaction.js";
@@ -18,7 +18,7 @@ export class WrappedIdbObjectStore
         if (key === undefined)
            result = this.wrapped.add(value, key);
         else
-            result = this.wrapped.add(value, toIdbValidKey(key));
+            result = this.wrapped.add(value, convertToIdbValidKey(key));
         return new WrappedIdbRequestOfIdbValidKey(result);
     }
 
@@ -38,10 +38,10 @@ export class WrappedIdbObjectStore
         let result: IDBRequest<number>;
         if (query === undefined)
             result = this.wrapped.count(query);
-        else if (query instanceof IdbKeyRangeInfo)
-            result = this.wrapped.count(query.toIdbKeyRange());
+        else if (isIdbKeyRangeInfo(query))
+            result = this.wrapped.count(convertToIdbKeyRange(query));
         else
-            result = this.wrapped.count(toIdbValidKey(query));
+            result = this.wrapped.count(convertToIdbValidKey(query));
         return new WrappedIdbRequestOfNumber(result);
     }
 
@@ -57,10 +57,10 @@ export class WrappedIdbObjectStore
     delete(query: IdbValidKeyInterop | IdbKeyRangeInfo): WrappedIdbRequestOfUndefined
     {
         let result: IDBRequest<undefined>;
-        if (query instanceof IdbKeyRangeInfo)
-            result = this.wrapped.delete(query.toIdbKeyRange());
+        if (isIdbKeyRangeInfo(query))
+            result = this.wrapped.delete(convertToIdbKeyRange(query));
         else
-            result = this.wrapped.delete(toIdbValidKey(query));
+            result = this.wrapped.delete(convertToIdbValidKey(query));
         return new WrappedIdbRequestOfUndefined(result);
     }
 
@@ -72,10 +72,10 @@ export class WrappedIdbObjectStore
     get(query: IdbValidKeyInterop | IdbKeyRangeInfo): WrappedIdbRequestOfAny
     {
         let result: IDBRequest<any>;
-        if (query instanceof IdbKeyRangeInfo)
-            result = this.wrapped.get(query.toIdbKeyRange());
+        if (isIdbKeyRangeInfo(query))
+            result = this.wrapped.get(convertToIdbKeyRange(query));
         else
-            result = this.wrapped.get(toIdbValidKey(query));
+            result = this.wrapped.get(convertToIdbValidKey(query));
         return new WrappedIdbRequestOfAny(result);
     }
 
@@ -86,10 +86,10 @@ export class WrappedIdbObjectStore
         let result: IDBRequest<any[]>;
         if (query === undefined || query === null)
             result = this.wrapped.getAll(query, count);
-        else if (query instanceof IdbKeyRangeInfo)
-            result = this.wrapped.getAll(query.toIdbKeyRange(), count);
+        else if (isIdbKeyRangeInfo(query))
+            result = this.wrapped.getAll(convertToIdbKeyRange(query), count);
         else
-            result = this.wrapped.getAll(toIdbValidKey(query), count);
+            result = this.wrapped.getAll(convertToIdbValidKey(query), count);
         return new WrappedIdbRequestOfAnyArray(result);
     }
 
@@ -100,20 +100,20 @@ export class WrappedIdbObjectStore
         let result: IDBRequest<IDBValidKey[]>;
         if (query === undefined || query === null)
             result = this.wrapped.getAllKeys(query, count);
-        else if (query instanceof IdbKeyRangeInfo)
-            result = this.wrapped.getAll(query.toIdbKeyRange(), count);
+        else if (isIdbKeyRangeInfo(query))
+            result = this.wrapped.getAllKeys(convertToIdbKeyRange(query), count);
         else
-            result = this.wrapped.getAll(toIdbValidKey(query), count);
+            result = this.wrapped.getAllKeys(convertToIdbValidKey(query), count);
         return new WrappedIdbRequestOfIdbValidKeyArray(result);
     }
 
     getKey(query: IdbValidKeyInterop | IdbKeyRangeInfo): WrappedIdbRequestOfIdbValidKeyOrUndefined
     {
         let result: IDBRequest<IDBValidKey | undefined>;
-        if (query instanceof IdbKeyRangeInfo)
-            result = this.wrapped.getKey(query.toIdbKeyRange());
+        if (isIdbKeyRangeInfo(query))
+            result = this.wrapped.getKey(convertToIdbKeyRange(query),);
         else
-            result = this.wrapped.getKey(toIdbValidKey(query));
+            result = this.wrapped.getKey(convertToIdbValidKey(query));
         return new WrappedIdbRequestOfIdbValidKeyOrUndefined(result);
     }
 
@@ -147,10 +147,10 @@ export class WrappedIdbObjectStore
         let result: IDBRequest<IDBCursorWithValue | null>;
         if (query === undefined || query === null)
             result = this.wrapped.openCursor(query, direction);
-        else if (query instanceof IdbKeyRangeInfo)
-            result = this.wrapped.openCursor(query.toIdbKeyRange(), direction);
+        else if (isIdbKeyRangeInfo(query))
+            result = this.wrapped.openCursor(convertToIdbKeyRange(query), direction);
         else
-            result = this.wrapped.openCursor(toIdbValidKey(query), direction);
+            result = this.wrapped.openCursor(convertToIdbValidKey(query), direction);
         return new WrappedIdbRequestOfIdbCursorWithValueOrNull(result);
     }
 
@@ -161,10 +161,10 @@ export class WrappedIdbObjectStore
         let result: IDBRequest<IDBCursor | null>;
         if (query === undefined || query === null)
             result = this.wrapped.openKeyCursor(query, direction);
-        else if (query instanceof IdbKeyRangeInfo)
-            result = this.wrapped.openKeyCursor(query.toIdbKeyRange(), direction);
+        else if (isIdbKeyRangeInfo(query))
+            result = this.wrapped.openKeyCursor(convertToIdbKeyRange(query), direction);
         else
-            result = this.wrapped.openKeyCursor(toIdbValidKey(query), direction);
+            result = this.wrapped.openKeyCursor(convertToIdbValidKey(query), direction);
         return new WrappedIdbRequestOfIdbCursorOrNull(result);
     }
 
@@ -174,7 +174,7 @@ export class WrappedIdbObjectStore
         if (key === undefined)
             result = this.wrapped.put(value, key);
         else
-            result = this.wrapped.put(value, toIdbValidKey(key));
+            result = this.wrapped.put(value, convertToIdbValidKey(key));
         return new WrappedIdbRequestOfIdbValidKey(result);
     }
 

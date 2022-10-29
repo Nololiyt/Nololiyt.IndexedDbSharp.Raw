@@ -1,38 +1,33 @@
-﻿export class IdbKeyRangeInfo
+﻿export interface IdbKeyRangeInfo
 {
     lower: any;
-    lowerOpen: boolean | undefined;
+    lowerOpen: boolean;
     upper: any;
-    upperOpen: boolean | undefined;
+    upperOpen: boolean;
+}
 
-    constructor(
-        lower?: any | undefined,
-        lowerOpen?: boolean | undefined,
-        upper?: any | undefined,
-        upperOpen?: boolean | undefined)
+export function isIdbKeyRangeInfo(obj: any): obj is IdbKeyRangeInfo
+{
+    const converted = <IdbKeyRangeInfo>obj;
+    return converted.lowerOpen !== undefined &&
+        converted.upperOpen !== undefined;
+}
+
+export function convertToIdbKeyRange(info: IdbKeyRangeInfo): IDBKeyRange
+{
+    if (info.lower === undefined)
     {
-        this.lower = lower;
-        this.lowerOpen = lowerOpen;
-        this.upper = upper;
-        this.upperOpen = upperOpen;
+        if (info.upper === undefined)
+            throw new RangeError(
+                `Cannot resolve the IdbKeyRangeInfo { upper=${info.upper}, upper=${info.lower} } .`);
+
+        return IDBKeyRange.lowerBound(info.lower, info.lowerOpen);
     }
 
-    toIdbKeyRange(): IDBKeyRange
+    if (info.upper === undefined)
     {
-        if (this.lower === undefined)
-        {
-            if (this.upper === undefined)
-                throw new RangeError(
-                    `Cannot resolve the IdbKeyRangeInfo { upper=${this.upper}, upper=${this.lower} } .`);
-
-            return IDBKeyRange.lowerBound(this.lower, this.lowerOpen);
-        }
-
-        if (this.upper === undefined)
-        {
-            return IDBKeyRange.upperBound(this.upper, this.upperOpen);
-        }
-        
-        return IDBKeyRange.bound(this.lower, this.upper, this.lowerOpen, this.upperOpen);
+        return IDBKeyRange.upperBound(info.upper, info.upperOpen);
     }
+
+    return IDBKeyRange.bound(info.lower, info.upper, info.lowerOpen, info.upperOpen);
 }

@@ -3,7 +3,7 @@ import { DotNetDateTime } from "./DotNetDateTime.js";
 
 export type IdbValidKeyInterop = number | string | DotNetDateTime | DotNetByteArray | IdbValidKeyInterop[];
 
-export function toIdbValidKey(idbValidKey: IdbValidKeyInterop): IDBValidKey
+export function convertToIdbValidKey(idbValidKey: IdbValidKeyInterop): IDBValidKey
 {
     /*
     if (Array.isArray(idbValidKey))
@@ -15,7 +15,7 @@ export function toIdbValidKey(idbValidKey: IdbValidKeyInterop): IDBValidKey
     return idbValidKey;
 }
 
-export function toIdbValidKeyInterop(idbValidKey: IDBValidKey): IdbValidKeyInterop
+export function convertToIdbValidKeyInterop(idbValidKey: IDBValidKey): IdbValidKeyInterop
 {
     /*
     if (Array.isArray(idbValidKey))

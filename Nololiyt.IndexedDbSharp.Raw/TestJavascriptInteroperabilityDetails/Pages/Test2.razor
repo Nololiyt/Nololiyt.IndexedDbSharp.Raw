@@ -1,0 +1,54 @@
+﻿@page "/test2"
+
+<div>Loaded. Results are in the console.</div>
+
+@inject ILogger<Test2> Logger
+@code
+{
+    protected override async Task OnInitializedAsync()
+    {
+        await using var module = await GetModule();
+
+        {
+            var n = await module.InvokeAsync<JsonElement>("getNull");
+            Logger.LogWarning(
+                "A js null will be serialized as [{}].",
+                n.ValueKind);
+        }
+
+        {
+            var obj = await module.InvokeAsync<JsonElement>("getObjectWithNullProperty");
+            using var e = obj.EnumerateObject();
+            Logger.LogWarning(
+                "Null properties will be serialized. [{}]",
+                e.Any());
+        }
+
+        {
+            var undefined = await module.InvokeAsync<JsonElement>("getUndefined");
+            Logger.LogWarning(
+                "A js undefined will be serialized as [{}].",
+                undefined.ValueKind);
+        }
+
+        {
+            var obj = await module.InvokeAsync<JsonElement>("getObjectWithUndefinedProperty");
+            using var e = obj.EnumerateObject();
+            Logger.LogWarning(
+                "Undefined properties will be serialized. [{}]",
+                e.Any());
+        }
+    }
+}
+
+<PageTitle>Test</PageTitle>
+@inject IJSRuntime js
+@code {
+    private async Task<IJSObjectReference> GetModule()
+    {
+        var typeName = this.GetType().Name;
+        return await js.InvokeAsync<IJSObjectReference>(
+            "import",
+            $"./generated/scripts/{typeName}.js");
+    }
+}

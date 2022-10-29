@@ -1,0 +1,33 @@
+﻿@page "/test1"
+
+<button @onclick="TestFunction">@text</button>
+@code
+{
+    private string text = "click me";
+    private int value = 0;
+
+    private async Task TestFunction()
+    {
+        await using var module = await GetModule();
+
+        using AsyncCallbackObject<string> callbackObject = new((s) => {
+            this.text = s;
+            return Task.CompletedTask;
+        });
+        value++;
+        await module.InvokeVoidAsync("testFunction", value.ToString(), callbackObject);
+    }
+}
+
+<PageTitle>Test</PageTitle>
+
+@inject IJSRuntime js
+@code {
+    private async Task<IJSObjectReference> GetModule()
+    {
+        var typeName = this.GetType().Name;
+        return await js.InvokeAsync<IJSObjectReference>(
+            "import",
+            $"./generated/scripts/{typeName}.js");
+    }
+}

@@ -1,4 +1,4 @@
-﻿import { DotNetCallbackObject } from "../Entities/DotNetCallbackObject.js";
+﻿import { DotNetCallbackObject, invokeDotNetCallback } from "../Entities/DotNetCallbackObject.js";
 import { WrappedDomException } from "./WrappedDomException.js";
 import { WrappedEvent } from "./WrappedEvent.js";
 import { WrappedIdbDatabase } from "./WrappedIDbDatabase.js";
@@ -68,7 +68,7 @@ export class WrappedIdbTransaction
             {
                 const wrappedThis = new WrappedIdbTransaction(this);
                 const wrappedEv = new WrappedEvent(ev);
-                callbackObject.InvokeCallback(wrappedThis, wrappedEv);
+                invokeDotNetCallback(callbackObject, wrappedThis, wrappedEv);
             };
         else
             this.wrapped.onabort = null;
@@ -81,7 +81,7 @@ export class WrappedIdbTransaction
             {
                 const wrappedThis = new WrappedIdbTransaction(this);
                 const wrappedEv = new WrappedEvent(ev);
-                callbackObject.InvokeCallback(wrappedThis, wrappedEv);
+                invokeDotNetCallback(callbackObject, wrappedThis, wrappedEv);
             };
         else
             this.wrapped.oncomplete = null;
@@ -94,7 +94,7 @@ export class WrappedIdbTransaction
             {
                 const wrappedThis = new WrappedIdbTransaction(this);
                 const wrappedEv = new WrappedEvent(ev);
-                callbackObject.InvokeCallback(wrappedThis, wrappedEv);
+                invokeDotNetCallback(callbackObject, wrappedThis, wrappedEv);
             };
         else
             this.wrapped.onerror = null;

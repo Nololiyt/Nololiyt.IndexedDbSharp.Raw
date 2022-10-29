@@ -1,7 +1,7 @@
 ﻿import { WrappedIdbRequestOfUndefined, WrappedIdbRequestOfAny } from "./WrappedIdbRequests.js";
 import { WrappedIdbObjectStore } from "./WrappedIdbObjectStore.js";
 import { WrappedIdbIndex } from "./WrappedIdbIndex.js";
-import { IdbValidKeyInterop, toIdbValidKey, toIdbValidKeyInterop } from "../Entities/IdbValidKeyInterop.js";
+import { IdbValidKeyInterop, convertToIdbValidKey, convertToIdbValidKeyInterop } from "../Entities/IdbValidKeyInterop.js";
 import { DotNetDateTime } from "../Entities/DotNetDateTime.js";
 import { DotNetByteArray } from "../Entities/DotNetByteArray.js";
 
@@ -23,7 +23,7 @@ export class WrappedIdbCursor
         if (key === undefined)
             this.wrapped.continue();
         else
-            this.wrapped.continue(toIdbValidKey(key));
+            this.wrapped.continue(convertToIdbValidKey(key));
     }
 
     continuePrimaryKey(
@@ -31,7 +31,7 @@ export class WrappedIdbCursor
         primaryKey: IdbValidKeyInterop
     ): void
     {
-        this.wrapped.continuePrimaryKey(toIdbValidKey(key), toIdbValidKey(primaryKey));
+        this.wrapped.continuePrimaryKey(convertToIdbValidKey(key), convertToIdbValidKey(primaryKey));
     }
 
     delete(): WrappedIdbRequestOfUndefined
@@ -49,13 +49,13 @@ export class WrappedIdbCursor
     key(): IdbValidKeyInterop
     {
         const result = this.wrapped.key;
-        return toIdbValidKeyInterop(result);
+        return convertToIdbValidKeyInterop(result);
     }
 
     primaryKey(): IdbValidKeyInterop
     {
         const result = this.wrapped.primaryKey;
-        return toIdbValidKeyInterop(result);
+        return convertToIdbValidKeyInterop(result);
     }
 
     request(): WrappedIdbRequestOfAny

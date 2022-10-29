@@ -24,10 +24,6 @@
 	  </Content>
 	</ItemGroup>
 	
-	<ItemGroup>
-	  <Folder Include="wwwroot\generated\" />
-	</ItemGroup>
-
 	<PropertyGroup>
 		<AssignTargetPathsDependsOn>
 			CompileTypeScript;$(AssignTargetPathsDependsOn)

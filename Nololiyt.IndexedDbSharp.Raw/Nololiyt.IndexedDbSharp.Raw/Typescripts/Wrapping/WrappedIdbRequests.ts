@@ -5,8 +5,8 @@ import { WrappedIdbCursor } from "./WrappedIdbCursor.js";
 import { WrappedEvent } from "./WrappedEvent.js";
 import { WrappedIdbCursorWithValue } from "./WrappedIdbCursorWithValue.js";
 import { WrappedIdbDatabase } from "./WrappedIDbDatabase.js";
-import { IdbValidKeyInterop, toIdbValidKeyInterop } from "../Entities/IdbValidKeyInterop.js";
-import { DotNetCallbackObject } from "../Entities/DotNetCallbackObject.js";
+import { IdbValidKeyInterop, convertToIdbValidKeyInterop } from "../Entities/IdbValidKeyInterop.js";
+import { DotNetCallbackObject, invokeDotNetCallback } from "../Entities/DotNetCallbackObject.js";
 
 export class WrappedIdbRequest<TWrapped, T>
 {
@@ -26,7 +26,7 @@ export class WrappedIdbRequest<TWrapped, T>
             {
                 const wrappedThis = new WrappedIdbRequest<TWrapped, T>(this, conversion);
                 const wrappedEv = new WrappedEvent(ev);
-                callbackObject.InvokeCallback(wrappedThis, wrappedEv);
+                invokeDotNetCallback(callbackObject, wrappedThis, wrappedEv);
             };
         else
             this.wrapped.onerror = null;
@@ -40,7 +40,7 @@ export class WrappedIdbRequest<TWrapped, T>
             {
                 const wrappedThis = new WrappedIdbRequest<TWrapped, T>(this, conversion);
                 const wrappedEv = new WrappedEvent(ev);
-                callbackObject.InvokeCallback(wrappedThis, wrappedEv);
+                invokeDotNetCallback(callbackObject, wrappedThis, wrappedEv);
             };
         else
             this.wrapped.onsuccess = null;
@@ -149,7 +149,7 @@ export class WrappedIdbRequestOfIdbValidKey
     {
         super(wrapped, (result) =>
         {
-            return toIdbValidKeyInterop(result)
+            return convertToIdbValidKeyInterop(result)
         });
     }
 }
@@ -161,23 +161,21 @@ export class WrappedIdbRequestOfIdbValidKeyArray
     {
         super(wrapped, (result) =>
         {
-            return result.map((item, _index, _array) => toIdbValidKeyInterop(item));
+            return result.map((item, _index, _array) => convertToIdbValidKeyInterop(item));
         });
     }
 }
 
 export class WrappedIdbRequestOfIdbValidKeyOrUndefined
-    extends WrappedIdbRequest<IDBValidKey | undefined, IdbValidKeyInterop | null>
+    extends WrappedIdbRequest<IDBValidKey | undefined, IdbValidKeyInterop | undefined>
 {
     constructor(wrapped: IDBRequest<IDBValidKey | undefined>)
     {
         super(wrapped, (result) =>
         {
             if (result)
-                return toIdbValidKeyInterop(result);
-            // should use undefined here.
-            // but I'm not sure will it cause problems in csharp.
-            return null;
+                return convertToIdbValidKeyInterop(result);
+            return undefined;
         });
     }
 }
@@ -195,13 +193,13 @@ export class WrappedIdbRequestOfNumber
 }
 
 export class WrappedIdbRequestOfUndefined
-    extends WrappedIdbRequest<undefined, null>
+    extends WrappedIdbRequest<undefined, undefined>
 {
     constructor(wrapped: IDBRequest<undefined>)
     {
-        super(wrapped, (_result) =>
+        super(wrapped, (result) =>
         {
-            return null;
+            return result;
         });
     }
 }

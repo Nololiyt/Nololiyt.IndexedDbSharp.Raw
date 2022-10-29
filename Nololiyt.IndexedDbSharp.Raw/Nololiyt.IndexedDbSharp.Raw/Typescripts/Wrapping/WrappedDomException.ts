@@ -16,13 +16,9 @@
         return this.wrapped.name;
     }
 
-    stack(): string | null
+    stack(): string | undefined
     {
-        const result = this.wrapped.stack;
-        if (result)
-            return result;
-        else
-            return null;
+        return this.wrapped.stack;
     }
     
     code(): number

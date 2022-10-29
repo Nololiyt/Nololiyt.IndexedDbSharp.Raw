@@ -5,9 +5,11 @@ VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nololiyt.IndexedDbSharp.Raw", "Nololiyt.IndexedDbSharp.Raw\Nololiyt.IndexedDbSharp.Raw.csproj", "{76404CA3-724C-4340-91E0-FF04661ADC82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestBlazorWebAssembly", "TestBlazorWebAssembly\TestBlazorWebAssembly.csproj", "{C0679D0B-7C2E-42BC-BE75-B9E7BAD593DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestBlazorWebAssembly", "TestBlazorWebAssembly\TestBlazorWebAssembly.csproj", "{C0679D0B-7C2E-42BC-BE75-B9E7BAD593DD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{5AC28379-2ECA-43FE-9D0D-5B0CBBA2086B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestJavascriptInteroperabilityDetails", "TestJavascriptInteroperabilityDetails\TestJavascriptInteroperabilityDetails.csproj", "{CEE294A4-D169-4573-B2B2-3B0AE804B552}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{C0679D0B-7C2E-42BC-BE75-B9E7BAD593DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0679D0B-7C2E-42BC-BE75-B9E7BAD593DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0679D0B-7C2E-42BC-BE75-B9E7BAD593DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEE294A4-D169-4573-B2B2-3B0AE804B552}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEE294A4-D169-4573-B2B2-3B0AE804B552}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEE294A4-D169-4573-B2B2-3B0AE804B552}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEE294A4-D169-4573-B2B2-3B0AE804B552}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

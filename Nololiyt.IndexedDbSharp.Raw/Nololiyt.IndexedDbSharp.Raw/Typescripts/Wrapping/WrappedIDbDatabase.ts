@@ -1,4 +1,4 @@
-﻿import { DotNetCallbackObject } from "../Entities/DotNetCallbackObject.js";
+﻿import { DotNetCallbackObject, invokeDotNetCallback } from "../Entities/DotNetCallbackObject.js";
 import { WrappedEvent } from "./WrappedEvent.js";
 import { WrappedIdbObjectStore } from "./WrappedIdbObjectStore.js";
 import { WrappedIdbTransaction } from "./WrappedIdbTransaction.js";
@@ -50,7 +50,7 @@ export class WrappedIdbDatabase
             {
                 const wrappedThis = new WrappedIdbDatabase(this);
                 const wrappedEv = new WrappedEvent(ev);
-                callbackObject.InvokeCallback(wrappedThis, wrappedEv);
+                invokeDotNetCallback(callbackObject, wrappedThis, wrappedEv);
             };
         else
             this.wrapped.onabort = null;
@@ -63,7 +63,7 @@ export class WrappedIdbDatabase
             {
                 const wrappedThis = new WrappedIdbDatabase(this);
                 const wrappedEv = new WrappedEvent(ev);
-                callbackObject.InvokeCallback(wrappedThis, wrappedEv);
+                invokeDotNetCallback(callbackObject, wrappedThis, wrappedEv);
             };
         else
             this.wrapped.onclose = null;
@@ -76,7 +76,7 @@ export class WrappedIdbDatabase
             {
                 const wrappedThis = new WrappedIdbDatabase(this);
                 const wrappedEv = new WrappedEvent(ev);
-                callbackObject.InvokeCallback(wrappedThis, wrappedEv);
+                invokeDotNetCallback(callbackObject, wrappedThis, wrappedEv);
             };
         else
             this.wrapped.onerror = null;
@@ -89,7 +89,7 @@ export class WrappedIdbDatabase
             {
                 const wrappedThis = new WrappedIdbDatabase(this);
                 const wrappedEv = new WrappedEvent(ev);
-                callbackObject.InvokeCallback(wrappedThis, wrappedEv);
+                invokeDotNetCallback(callbackObject, wrappedThis, wrappedEv);
             };
         else
             this.wrapped.onversionchange = null;
