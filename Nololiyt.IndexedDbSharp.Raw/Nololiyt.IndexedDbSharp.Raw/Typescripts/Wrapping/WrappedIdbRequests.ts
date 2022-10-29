@@ -5,7 +5,6 @@ import { WrappedIdbCursor } from "./WrappedIdbCursor.js";
 import { WrappedEvent } from "./WrappedEvent.js";
 import { WrappedIdbCursorWithValue } from "./WrappedIdbCursorWithValue.js";
 import { WrappedIdbDatabase } from "./WrappedIDbDatabase.js";
-import { IdbValidKeyInterop, convertToIdbValidKeyInterop } from "../Entities/IdbValidKeyInterop.js";
 import { DotNetCallbackObject, invokeDotNetCallback } from "../Entities/DotNetCallbackObject.js";
 
 export class WrappedIdbRequest<TWrapped, T>
@@ -143,39 +142,37 @@ export class WrappedIdbRequestOfIdbDatabase
 }
 
 export class WrappedIdbRequestOfIdbValidKey
-    extends WrappedIdbRequest<IDBValidKey, IdbValidKeyInterop>
+    extends WrappedIdbRequest<IDBValidKey, IDBValidKey>
 {
     constructor(wrapped: IDBRequest<IDBValidKey>)
     {
         super(wrapped, (result) =>
         {
-            return convertToIdbValidKeyInterop(result)
+            return result;
         });
     }
 }
 
 export class WrappedIdbRequestOfIdbValidKeyArray
-    extends WrappedIdbRequest<IDBValidKey[], IdbValidKeyInterop[]>
+    extends WrappedIdbRequest<IDBValidKey[], IDBValidKey[]>
 {
     constructor(wrapped: IDBRequest<IDBValidKey[]>)
     {
         super(wrapped, (result) =>
         {
-            return result.map((item, _index, _array) => convertToIdbValidKeyInterop(item));
+            return result;
         });
     }
 }
 
 export class WrappedIdbRequestOfIdbValidKeyOrUndefined
-    extends WrappedIdbRequest<IDBValidKey | undefined, IdbValidKeyInterop | undefined>
+    extends WrappedIdbRequest<IDBValidKey | undefined, IDBValidKey | undefined>
 {
     constructor(wrapped: IDBRequest<IDBValidKey | undefined>)
     {
         super(wrapped, (result) =>
         {
-            if (result)
-                return convertToIdbValidKeyInterop(result);
-            return undefined;
+            return result;
         });
     }
 }

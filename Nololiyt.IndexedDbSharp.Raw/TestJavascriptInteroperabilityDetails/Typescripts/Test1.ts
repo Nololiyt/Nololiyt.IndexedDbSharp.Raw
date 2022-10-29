@@ -2,7 +2,5 @@
 
 export function testFunction(result: string, callback: DotNetCallbackObject)
 {
-    console.log(callback);
-    console.log(result);
     InvokeDotNetCallback(callback, result);
 }

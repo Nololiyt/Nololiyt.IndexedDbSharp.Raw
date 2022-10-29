@@ -1,0 +1,32 @@
+﻿@page "/test4"
+
+<div>Loaded. Results are in the console.</div>
+
+@inject ILogger<Test2> Logger
+@code
+{
+    protected override async Task OnInitializedAsync()
+    {
+        await using var module = await GetModule();
+        {
+            var dateTime = await module.InvokeAsync<DateTime>("testFunction", DateTime.Now);
+            Logger.LogWarning("Date got in csharp: {date}", dateTime);
+        }
+        {
+            var dateTime = await module.InvokeAsync<DateTimeOffset>("testFunction", DateTimeOffset.Now);
+            Logger.LogWarning("Date got in csharp: {date}", dateTime);
+        }
+    }
+}
+
+<PageTitle>Test</PageTitle>
+@inject IJSRuntime js
+@code {
+    private async Task<IJSObjectReference> GetModule()
+    {
+        var typeName = this.GetType().Name;
+        return await js.InvokeAsync<IJSObjectReference>(
+            "import",
+            $"./generated/scripts/{typeName}.js");
+    }
+}
