@@ -12,7 +12,7 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation
             this.jsRuntime = jsRuntime;
         }
 
-        public async ValueTask<IWrappedDomException?> NewWrappedIdbFactoryAsync()
+        public async ValueTask<IWrappedIdbFactory?> NewWrappedIdbFactoryAsync()
         {
             await using var module = await jsRuntime.InvokeAsync<IJSObjectReference>(
                     "import",

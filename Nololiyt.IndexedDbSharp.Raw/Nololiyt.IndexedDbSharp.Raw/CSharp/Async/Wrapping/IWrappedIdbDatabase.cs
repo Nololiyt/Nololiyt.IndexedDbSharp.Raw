@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
+using Nololiyt.IndexedDbSharp.Raw.CSharp.Async.EventObjects;
 using Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Wrapping;
 using Nololiyt.IndexedDbSharp.Raw.CSharp.Entities;
 using System;
@@ -21,14 +22,10 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Wrapping
         ValueTask DeleteObjectStoreAsync(string name);
         ValueTask<string> GetNameAsync();
         ValueTask<string[]> GetObjectStoreNamesAsync();
-        ValueTask SetOnAbortAsync(
-            CallbackObject<IWrappedIdbDatabase, IWrappedEvent>? callbackObject);
-        ValueTask SetOnCloseAsync(
-            CallbackObject<IWrappedIdbDatabase, IWrappedEvent>? callbackObject);
-        ValueTask SetOnErrorAsync(
-            CallbackObject<IWrappedIdbDatabase, IWrappedEvent>? callbackObject);
-        ValueTask SetOnVersionChangeAsync(
-            CallbackObject<IWrappedIdbDatabase, IWrappedEvent>? callbackObject);
+        ValueTask SetOnAbortAsync(EventObjectOfIdbDatabase? callbackObject);
+        ValueTask SetOnCloseAsync(EventObjectOfIdbDatabase? callbackObject);
+        ValueTask SetOnErrorAsync(EventObjectOfIdbDatabase? callbackObject);
+        ValueTask SetOnVersionChangeAsync(EventObjectOfIdbDatabase? callbackObject);
         ValueTask TransactionAsync(string[] storeNames);
         ValueTask TransactionAsync(string[] storeNames, IdbTransactionMode mode);
         ValueTask<IWrappedIdbTransaction> TransactionAsync(

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
-using Nololiyt.IndexedDbSharp.Raw.CSharp.Entities;
+using Nololiyt.IndexedDbSharp.Raw.CSharp.Async.EventObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +12,8 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Wrapping
     public interface IWrappedIdbOpenDbRequest : IWrappedIdbRequest<IWrappedIdbDatabase>
     {
         ValueTask SetOnBlockedAsync(
-            CallbackObject<IWrappedIdbRequest<IWrappedIdbDatabase>, IWrappedEvent>? callbackObject);
+            EventObjectOfIdbRequestOfIdbDatabase? callbackObject);
         ValueTask SetOnUpgradeNeededAsync(
-            CallbackObject<IWrappedIdbRequest<IWrappedIdbDatabase>, IWrappedEvent>? callbackObject);
+            EventObjectOfIdbRequestOfIdbDatabase? callbackObject);
     }
 }
