@@ -3,10 +3,12 @@
 export interface DotNetCallbackObject
 {
     object: DotNetObjectReference;
-    callbackMethod: string;
+    // callbackMethod: string;
 }
 
-export function invokeDotNetCallback(callbackObject: DotNetCallbackObject, ...args: any[])
+export async function invokeDotNetCallbackAsync(callbackObject: DotNetCallbackObject, ...args: any[])
 {
-    callbackObject.object.invokeMethodAsync(callbackObject.callbackMethod, ...args);
+    // const callbackMethod = callbackObject.callbackMethod;
+    const callbackMethod = "Invoke";
+    await callbackObject.object.invokeMethodAsync(callbackMethod, ...args);
 }

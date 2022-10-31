@@ -8,6 +8,11 @@ export class WrappedIdbFactory
         this.wrapped = wrapped;
     }
 
+    wrappedObject()
+    {
+        return this.wrapped;
+    }
+
     open(name: string, version: number): WrappedIdbOpenDbRequest
     {
         const request = this.wrapped.open(name, version);

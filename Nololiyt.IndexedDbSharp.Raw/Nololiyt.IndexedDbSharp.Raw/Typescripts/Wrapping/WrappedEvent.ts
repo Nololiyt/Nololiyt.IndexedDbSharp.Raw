@@ -6,6 +6,10 @@
         this.wrapped = wrapped;
     }
 
-    // Nothing is implemented here.
-    // I'm currently not sure whether they're required or not.
+    wrappedObject()
+    {
+        return this.wrapped;
+    }
+
+    // Nothing is currently provided here.
 }

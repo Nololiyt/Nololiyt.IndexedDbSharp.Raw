@@ -11,6 +11,11 @@ export class WrappedIdbCursor
         this.wrapped = wrapped;
     }
 
+    wrappedObject()
+    {
+        return this.wrapped;
+    }
+
     advance(count: number): void
     {
         this.wrapped.advance(count);

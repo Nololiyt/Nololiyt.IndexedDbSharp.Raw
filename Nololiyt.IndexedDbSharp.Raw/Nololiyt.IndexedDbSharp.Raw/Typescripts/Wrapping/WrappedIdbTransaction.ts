@@ -1,4 +1,4 @@
-﻿import { DotNetCallbackObject, invokeDotNetCallback } from "../Entities/DotNetCallbackObject.js";
+﻿import { DotNetCallbackObject, invokeDotNetCallbackAsync } from "../Entities/DotNetCallbackObject.js";
 import { WrappedDomException } from "./WrappedDomException.js";
 import { WrappedEvent } from "./WrappedEvent.js";
 import { WrappedIdbDatabase } from "./WrappedIDbDatabase.js";
@@ -10,6 +10,11 @@ export class WrappedIdbTransaction
     constructor(wrapped: IDBTransaction)
     {
         this.wrapped = wrapped;
+    }
+
+    wrappedObject()
+    {
+        return this.wrapped;
     }
 
     abort(): void
@@ -64,11 +69,11 @@ export class WrappedIdbTransaction
     setOnAbort(callbackObject: DotNetCallbackObject | null): void
     {
         if (callbackObject)
-            this.wrapped.onabort = function (this: IDBTransaction, ev: Event)
+            this.wrapped.onabort = async function (this: IDBTransaction, ev: Event)
             {
                 const wrappedThis = new WrappedIdbTransaction(this);
                 const wrappedEv = new WrappedEvent(ev);
-                invokeDotNetCallback(callbackObject, wrappedThis, wrappedEv);
+                await invokeDotNetCallbackAsync(callbackObject, wrappedThis, wrappedEv);
             };
         else
             this.wrapped.onabort = null;
@@ -77,11 +82,11 @@ export class WrappedIdbTransaction
     setOnComplete(callbackObject: DotNetCallbackObject | null): void
     {
         if (callbackObject)
-            this.wrapped.oncomplete = function (this: IDBTransaction, ev: Event)
+            this.wrapped.oncomplete = async function (this: IDBTransaction, ev: Event)
             {
                 const wrappedThis = new WrappedIdbTransaction(this);
                 const wrappedEv = new WrappedEvent(ev);
-                invokeDotNetCallback(callbackObject, wrappedThis, wrappedEv);
+                await invokeDotNetCallbackAsync(callbackObject, wrappedThis, wrappedEv);
             };
         else
             this.wrapped.oncomplete = null;
@@ -90,13 +95,16 @@ export class WrappedIdbTransaction
     setOnError(callbackObject: DotNetCallbackObject | null): void
     {
         if (callbackObject)
-            this.wrapped.onerror = function (this: IDBTransaction, ev: Event)
+            this.wrapped.onerror = async function (this: IDBTransaction, ev: Event)
             {
                 const wrappedThis = new WrappedIdbTransaction(this);
                 const wrappedEv = new WrappedEvent(ev);
-                invokeDotNetCallback(callbackObject, wrappedThis, wrappedEv);
+                await invokeDotNetCallbackAsync(callbackObject, wrappedThis, wrappedEv);
             };
         else
             this.wrapped.onerror = null;
     }
+
+    // Methods addEventListener, removeEventListener and dispatchEvent are currently not provided.
+    // The properties like oncomplete, onerror, ... are currently unreadable.
 }

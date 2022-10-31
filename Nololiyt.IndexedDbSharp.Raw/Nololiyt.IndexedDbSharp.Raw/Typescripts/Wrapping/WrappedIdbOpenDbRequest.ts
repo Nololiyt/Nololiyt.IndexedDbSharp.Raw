@@ -5,7 +5,7 @@ import { WrappedIdbCursor } from "./WrappedIdbCursor.js";
 import { WrappedIdbRequestOfIdbDatabase } from "./WrappedIdbRequests.js";
 import { WrappedEvent } from "./WrappedEvent.js";
 import { WrappedIdbTransaction } from "./WrappedIdbTransaction.js";
-import { DotNetCallbackObject, invokeDotNetCallback } from "../Entities/DotNetCallbackObject.js";
+import { DotNetCallbackObject, invokeDotNetCallbackAsync } from "../Entities/DotNetCallbackObject.js";
 
 export class WrappedIdbOpenDbRequest
 {
@@ -15,14 +15,19 @@ export class WrappedIdbOpenDbRequest
         this.wrapped = wrapped;
     }
 
+    wrappedObject()
+    {
+        return this.wrapped;
+    }
+
     setOnError(callbackObject: DotNetCallbackObject | null): void
     {
         if (callbackObject)
-            this.wrapped.onerror = function (this: IDBRequest<IDBDatabase>, ev: Event)
+            this.wrapped.onerror = async function (this: IDBRequest<IDBDatabase>, ev: Event)
             {
                 const wrappedThis = new WrappedIdbRequestOfIdbDatabase(this);
                 const wrappedEv = new WrappedEvent(ev);
-                invokeDotNetCallback(callbackObject, wrappedThis, wrappedEv);
+                await invokeDotNetCallbackAsync(callbackObject, wrappedThis, wrappedEv);
             };
         else
             this.wrapped.onerror = null;
@@ -31,11 +36,11 @@ export class WrappedIdbOpenDbRequest
     setOnSuccess(callbackObject: DotNetCallbackObject | null): void
     {
         if (callbackObject)
-            this.wrapped.onsuccess = function (this: IDBRequest<IDBDatabase>, ev: Event)
+            this.wrapped.onsuccess = async function (this: IDBRequest<IDBDatabase>, ev: Event)
             {
                 const wrappedThis = new WrappedIdbRequestOfIdbDatabase(this);
                 const wrappedEv = new WrappedEvent(ev);
-                invokeDotNetCallback(callbackObject, wrappedThis, wrappedEv);
+                await invokeDotNetCallbackAsync(callbackObject, wrappedThis, wrappedEv);
             };
         else
             this.wrapped.onsuccess = null;
@@ -44,11 +49,11 @@ export class WrappedIdbOpenDbRequest
     setOnBlocked(callbackObject: DotNetCallbackObject | null): void
     {
         if (callbackObject)
-            this.wrapped.onblocked = function (this: IDBRequest<IDBDatabase>, ev: Event)
+            this.wrapped.onblocked = async function (this: IDBRequest<IDBDatabase>, ev: Event)
             {
                 const wrappedThis = new WrappedIdbRequestOfIdbDatabase(this);
                 const wrappedEv = new WrappedEvent(ev);
-                invokeDotNetCallback(callbackObject, wrappedThis, wrappedEv);
+                await invokeDotNetCallbackAsync(callbackObject, wrappedThis, wrappedEv);
             };
         else
             this.wrapped.onblocked = null;
@@ -57,11 +62,11 @@ export class WrappedIdbOpenDbRequest
     setOnUpgradeNeeded(callbackObject: DotNetCallbackObject | null): void
     {
         if (callbackObject)
-            this.wrapped.onupgradeneeded = function (this: IDBRequest<IDBDatabase>, ev: Event)
+            this.wrapped.onupgradeneeded = async function (this: IDBRequest<IDBDatabase>, ev: Event)
             {
                 const wrappedThis = new WrappedIdbRequestOfIdbDatabase(this);
                 const wrappedEv = new WrappedEvent(ev);
-                invokeDotNetCallback(callbackObject, wrappedThis, wrappedEv);
+                await invokeDotNetCallbackAsync(callbackObject, wrappedThis, wrappedEv);
             };
         else
             this.wrapped.onupgradeneeded = null;
@@ -99,4 +104,7 @@ export class WrappedIdbOpenDbRequest
         else
             return null;
     }
+
+    // Methods addEventListener, removeEventListener and dispatchEvent are currently not provided.
+    // The properties like onsuccess, onerror, ... are currently unreadable.
 }

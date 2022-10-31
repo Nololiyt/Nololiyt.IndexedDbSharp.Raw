@@ -11,6 +11,11 @@ export class WrappedIdbObjectStore
         this.wrapped = wrapped;
     }
 
+    wrappedObject()
+    {
+        return this.wrapped;
+    }
+
     add(value: any, key?: IDBValidKey | undefined): WrappedIdbRequestOfIdbValidKey
     {
         const result = this.wrapped.add(value, key);

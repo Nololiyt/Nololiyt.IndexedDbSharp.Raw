@@ -5,7 +5,7 @@ import { WrappedIdbCursor } from "./WrappedIdbCursor.js";
 import { WrappedEvent } from "./WrappedEvent.js";
 import { WrappedIdbCursorWithValue } from "./WrappedIdbCursorWithValue.js";
 import { WrappedIdbDatabase } from "./WrappedIDbDatabase.js";
-import { DotNetCallbackObject, invokeDotNetCallback } from "../Entities/DotNetCallbackObject.js";
+import { DotNetCallbackObject, invokeDotNetCallbackAsync } from "../Entities/DotNetCallbackObject.js";
 
 export class WrappedIdbRequest<TWrapped, T>
 {
@@ -17,15 +17,20 @@ export class WrappedIdbRequest<TWrapped, T>
         this.conversion = conversion;
     }
 
+    wrappedObject()
+    {
+        return this.wrapped;
+    }
+
     setOnError(callbackObject: DotNetCallbackObject | null): void
     {
         let conversion = this.conversion;
         if (callbackObject)
-            this.wrapped.onerror = function (this: IDBRequest<TWrapped>, ev: Event)
+            this.wrapped.onerror = async function (this: IDBRequest<TWrapped>, ev: Event)
             {
                 const wrappedThis = new WrappedIdbRequest<TWrapped, T>(this, conversion);
                 const wrappedEv = new WrappedEvent(ev);
-                invokeDotNetCallback(callbackObject, wrappedThis, wrappedEv);
+                await invokeDotNetCallbackAsync(callbackObject, wrappedThis, wrappedEv);
             };
         else
             this.wrapped.onerror = null;
@@ -35,11 +40,11 @@ export class WrappedIdbRequest<TWrapped, T>
     {
         let conversion = this.conversion;
         if (callbackObject)
-            this.wrapped.onsuccess = function (this: IDBRequest<any>, ev: Event)
+            this.wrapped.onsuccess = async function (this: IDBRequest<any>, ev: Event)
             {
                 const wrappedThis = new WrappedIdbRequest<TWrapped, T>(this, conversion);
                 const wrappedEv = new WrappedEvent(ev);
-                invokeDotNetCallback(callbackObject, wrappedThis, wrappedEv);
+                await invokeDotNetCallbackAsync(callbackObject, wrappedThis, wrappedEv);
             };
         else
             this.wrapped.onsuccess = null;
@@ -77,6 +82,9 @@ export class WrappedIdbRequest<TWrapped, T>
         else
             return null;
     }
+
+    // Methods addEventListener, removeEventListener and dispatchEvent are currently not provided.
+    // The properties like onsuccess, onerror, ... are currently unreadable.
 }
 
 export class WrappedIdbRequestOfAny extends WrappedIdbRequest<any, any>

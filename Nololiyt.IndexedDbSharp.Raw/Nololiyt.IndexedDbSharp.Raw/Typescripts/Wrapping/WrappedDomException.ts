@@ -6,6 +6,11 @@
         this.wrapped = wrapped;
     }
 
+    wrappedObject()
+    {
+        return this.wrapped;
+    }
+
     message(): string
     {
         return this.wrapped.message;
@@ -25,4 +30,6 @@
     {
         return this.wrapped.code;
     }
+
+    // Properties like ABORT_ERR, DATA_CLONE_ERR, ... are currently not provided.
 }

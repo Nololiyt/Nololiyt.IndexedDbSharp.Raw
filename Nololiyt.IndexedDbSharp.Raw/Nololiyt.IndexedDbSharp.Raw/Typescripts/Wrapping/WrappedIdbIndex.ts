@@ -10,6 +10,11 @@ export class WrappedIdbIndex
         this.wrapped = wrapped;
     }
 
+    wrappedObject()
+    {
+        return this.wrapped;
+    }
+
     count(query?: IDBValidKey | IdbKeyRangeInfo | undefined): WrappedIdbRequestOfNumber
     {
         let result: IDBRequest<number>;
