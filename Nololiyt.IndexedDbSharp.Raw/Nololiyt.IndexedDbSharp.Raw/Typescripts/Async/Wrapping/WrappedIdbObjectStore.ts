@@ -126,12 +126,9 @@ export class WrappedIdbObjectStore
         return result;
     }
 
-    keyPath(): string[]
+    keyPath(): string | string[]
     {
-        const result = this.wrapped.keyPath;
-        if (Array.isArray(result))
-            return result;
-        return [result];
+        return this.wrapped.keyPath;
     }
 
     openCursor(

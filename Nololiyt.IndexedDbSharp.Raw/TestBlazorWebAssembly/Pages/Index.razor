@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using System.Diagnostics
 
 <PageTitle>Counter</PageTitle>
 
@@ -8,14 +9,16 @@
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
-
-@inject Nololiyt.IndexedDbSharp.Raw.CSharp.IIndexedDbSharpRawEntry IndexedDb
+@inject Nololiyt.IndexedDbSharp.Raw.CSharp.Async.IAsyncIndexedDbSharpRawEntry IndexedDb
 @code {
     private int currentCount = 0;
 
     private async Task IncrementCount()
     {
         currentCount++;
-        await using var factory = await IndexedDb.NewWrappedIdbFactory();
+
+        await using var factory = await IndexedDb.NewWrappedIdbFactoryAsync();
+        Debug.Assert(factory is not null);
+        await using var request = await factory.OpenAsync("test");
     }
 }

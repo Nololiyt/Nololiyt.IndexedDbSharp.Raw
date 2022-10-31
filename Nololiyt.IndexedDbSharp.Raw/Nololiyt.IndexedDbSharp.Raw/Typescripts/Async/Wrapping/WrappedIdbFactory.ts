@@ -13,7 +13,7 @@ export class WrappedIdbFactory
         return this.wrapped;
     }
 
-    open(name: string, version: number): WrappedIdbOpenDbRequest
+    open(name: string, version?: number | undefined): WrappedIdbOpenDbRequest
     {
         const request = this.wrapped.open(name, version);
         return new WrappedIdbOpenDbRequest(request);

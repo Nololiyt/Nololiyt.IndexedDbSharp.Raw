@@ -2,20 +2,22 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.JSInterop;
-using Nololiyt.IndexedDbSharp.Raw.CSharp;
+using Nololiyt.IndexedDbSharp.Raw.CSharp.Async;
+using Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation;
 
-namespace Nololiyt.BlazorIndexedDb.Extensions
+namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Extensions
 {
     public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddIndexedDbSharpRaw(
-            this IServiceCollection services, ServiceLifetime lifetime = ServiceLifetime.Scoped)
+            this IServiceCollection services,
+            ServiceLifetime lifetime = ServiceLifetime.Scoped)
         {
             var descriptor = new ServiceDescriptor(
-                serviceType: typeof(IIndexedDbSharpRawEntry),
+                serviceType: typeof(IAsyncIndexedDbSharpRawEntry),
                 factory: (services) => {
                     var jsRuntime = services.GetRequiredService<IJSRuntime>();
-                    return new IndexedDbSharpRawEntry(jsRuntime);
+                    return new AsyncIndexedDbSharpRawEntry(jsRuntime);
                 },
                 lifetime: lifetime);
             services.Add(descriptor);

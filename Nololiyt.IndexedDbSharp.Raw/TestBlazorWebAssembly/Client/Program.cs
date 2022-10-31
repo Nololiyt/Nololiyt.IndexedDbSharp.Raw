@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Nololiyt.BlazorIndexedDb.Extensions;
 using Nololiyt.IndexedDbSharp.Raw.CSharp;
+using Nololiyt.IndexedDbSharp.Raw.CSharp.Extensions;
 using TestBlazorWebAssembly;
 
 namespace TestBlazorWebAssembly
