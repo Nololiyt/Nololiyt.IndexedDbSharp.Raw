@@ -1,6 +1,8 @@
 ﻿import { WrappedIdbRequestOfUndefined, WrappedIdbRequestOfAny, WrappedIdbRequestOfIdbValidKey } from "./WrappedIdbRequests.js";
 import { WrappedIdbObjectStore } from "./WrappedIdbObjectStore.js";
 import { WrappedIdbIndex } from "./WrappedIdbIndex.js";
+import { IdbCursorSource } from "../UnionReturn/IdbCursorSource.js";
+import { AnyReturn } from "../UnionReturn/AnyReturn.js";
 
 export class WrappedIdbCursorWithValue
 {
@@ -61,14 +63,14 @@ export class WrappedIdbCursorWithValue
         return new WrappedIdbRequestOfAny(result);
     }
 
-    source(): WrappedIdbObjectStore | WrappedIdbIndex
+    source(): IdbCursorSource
     {
         const result = this.wrapped.source;
         if (result instanceof IDBObjectStore)
         {
-            return new WrappedIdbObjectStore(result);
+            return new IdbCursorSource(new WrappedIdbObjectStore(result));
         }
-        return new WrappedIdbIndex(result);
+        return new IdbCursorSource(new WrappedIdbIndex(result));
     }
 
     update(value: any): WrappedIdbRequestOfIdbValidKey
@@ -77,8 +79,8 @@ export class WrappedIdbCursorWithValue
         return new WrappedIdbRequestOfIdbValidKey(result);
     }
 
-    value(): any
+    value(): AnyReturn
     {
-        return this.wrapped.value;
+        return new AnyReturn(this.wrapped.value);
     }
 }

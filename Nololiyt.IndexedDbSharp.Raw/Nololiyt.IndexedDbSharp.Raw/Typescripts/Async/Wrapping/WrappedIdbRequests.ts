@@ -6,6 +6,9 @@ import { WrappedEvent } from "./WrappedEvent.js";
 import { WrappedIdbCursorWithValue } from "./WrappedIdbCursorWithValue.js";
 import { WrappedIdbDatabase } from "./WrappedIDbDatabase.js";
 import { DotNetCallbackObject, invokeDotNetCallbackAsync } from "../Entities/DotNetCallbackObject.js";
+import { IdbRequestSource } from "../UnionReturn/IdbRequestSource.js";
+import { ValueOrNull } from "../UnionReturn/ValueOrNull.js";
+import { AnyReturn } from "../UnionReturn/AnyReturn.js";
 
 export class WrappedIdbRequest<TWrapped, T>
 {
@@ -40,7 +43,7 @@ export class WrappedIdbRequest<TWrapped, T>
     {
         let conversion = this.conversion;
         if (callbackObject)
-            this.wrapped.onsuccess = async function (this: IDBRequest<any>, ev: Event)
+            this.wrapped.onsuccess = async function (this: IDBRequest<TWrapped>, ev: Event)
             {
                 const wrappedThis = new WrappedIdbRequest<TWrapped, T>(this, conversion);
                 const wrappedEv = new WrappedEvent(ev);
@@ -60,65 +63,65 @@ export class WrappedIdbRequest<TWrapped, T>
         return this.wrapped.readyState;
     }
 
-    source(): WrappedIdbObjectStore | WrappedIdbIndex | WrappedIdbCursor
+    source(): IdbRequestSource
     {
         const source = this.wrapped.source;
         if (source instanceof IDBObjectStore)
         {
-            return new WrappedIdbObjectStore(source);
+            return new IdbRequestSource(new WrappedIdbObjectStore(source));
         }
         if (source instanceof IDBIndex)
         {
-            return new WrappedIdbIndex(source);
+            return new IdbRequestSource(new WrappedIdbIndex(source));
         }
-        return new WrappedIdbCursor(source);
+        return new IdbRequestSource(new WrappedIdbCursor(source));
     }
 
-    transaction(): WrappedIdbTransaction | null
+    transaction(): ValueOrNull<WrappedIdbTransaction>
     {
         const transaction = this.wrapped.transaction;
         if (transaction)
-            return new WrappedIdbTransaction(transaction);
+            return new ValueOrNull(new WrappedIdbTransaction(transaction));
         else
-            return null;
+            return new ValueOrNull<WrappedIdbTransaction>(null);
     }
 
     // Methods addEventListener, removeEventListener and dispatchEvent are currently not provided.
     // The properties like onsuccess, onerror, ... are currently unreadable.
 }
 
-export class WrappedIdbRequestOfAny extends WrappedIdbRequest<any, any>
+export class WrappedIdbRequestOfAny extends WrappedIdbRequest<any, AnyReturn>
 {
     constructor(wrapped: IDBRequest<any>)
     {
         super(wrapped, (result) =>
         {
-            return result;
+            return new AnyReturn(result);
         });
     }
 }
 
-export class WrappedIdbRequestOfAnyArray extends WrappedIdbRequest<any[], any[]>
+export class WrappedIdbRequestOfAnyArray extends WrappedIdbRequest<any[], AnyReturn[]>
 {
     constructor(wrapped: IDBRequest<any[]>)
     {
         super(wrapped, (result) =>
         {
-            return result;
+            return result.map((value, _index, _array) => new AnyReturn(value));
         });
     }
 }
 
 export class WrappedIdbRequestOfIdbCursorOrNull
-    extends WrappedIdbRequest<IDBCursor | null, WrappedIdbCursor | null>
+    extends WrappedIdbRequest<IDBCursor | null, ValueOrNull<WrappedIdbCursor>>
 {
     constructor(wrapped: IDBRequest<IDBCursor | null>)
     {
         super(wrapped, (result) =>
         {
             if (result === null)
-                return null;
-            return new WrappedIdbCursor(result);
+                return new ValueOrNull<WrappedIdbCursor>(null);
+            return new ValueOrNull(new WrappedIdbCursor(result));
         });
     }
 }

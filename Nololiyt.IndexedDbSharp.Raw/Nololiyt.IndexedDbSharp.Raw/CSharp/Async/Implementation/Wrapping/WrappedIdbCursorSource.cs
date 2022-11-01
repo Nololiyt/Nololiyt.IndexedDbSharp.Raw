@@ -4,34 +4,21 @@ using Nololiyt.IndexedDbSharp.Raw.CSharp.Entities;
 
 namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
 {
-    internal sealed class WrappedIdbRequestSource : WrappedJsObjectBase, IWrappedIdbRequestSource
+    internal sealed class WrappedIdbCursorSource : WrappedJsObjectBase, IWrappedIdbCursorSource
     {
-        public WrappedIdbRequestSource(IJSObjectReference wrappedObject)
+        public WrappedIdbCursorSource(IJSObjectReference wrappedObject)
             : base(wrappedObject)
         {
         }
-
-        public ValueTask<IWrappedIdbCursor?> GetSourceAsCursorAsync()
+        public ValueTask<IdbCursorSourceType> GetSourceTypeAsync()
         {
             throw new NotImplementedException();
         }
-
         public ValueTask<IWrappedIdbIndex?> GetSourceAsIndexAsync()
         {
             throw new NotImplementedException();
         }
-
         public ValueTask<IWrappedIdbObjectStore?> GetSourceAsObjectStoreAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public ValueTask<IdbRequestSourceType> GetSourceTypeAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public ValueTask<IJSObjectReference> GetWrappedWrappedObjectAsync()
         {
             throw new NotImplementedException();
         }

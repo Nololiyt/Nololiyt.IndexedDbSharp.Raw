@@ -1,6 +1,7 @@
 ﻿import { WrappedIdbRequestOfUndefined, WrappedIdbRequestOfAny } from "./WrappedIdbRequests.js";
 import { WrappedIdbObjectStore } from "./WrappedIdbObjectStore.js";
 import { WrappedIdbIndex } from "./WrappedIdbIndex.js";
+import { IdbCursorSource } from "../UnionReturn/IdbCursorSource.js";
 
 
 export class WrappedIdbCursor
@@ -62,13 +63,13 @@ export class WrappedIdbCursor
         return new WrappedIdbRequestOfAny(result);
     }
 
-    source(): WrappedIdbObjectStore | WrappedIdbIndex
+    source(): IdbCursorSource
     {
         const result = this.wrapped.source;
         if (result instanceof IDBObjectStore)
         {
-            return new WrappedIdbObjectStore(result);
+            return new IdbCursorSource(new WrappedIdbObjectStore(result));
         }
-        return new WrappedIdbIndex(result);
+        return new IdbCursorSource(new WrappedIdbIndex(result));
     }
 }

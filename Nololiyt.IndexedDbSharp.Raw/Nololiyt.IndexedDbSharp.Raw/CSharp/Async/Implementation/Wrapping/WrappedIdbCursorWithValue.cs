@@ -50,22 +50,7 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
             throw new NotImplementedException();
         }
 
-        public ValueTask<object> GetSourceAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public ValueTask<dynamic> GetSourceDynamicAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public ValueTask<IWrappedIdbIndex> GetSourceIndexAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public ValueTask<IWrappedIdbObjectStore> GetSourceObjectStoreAsync()
+        public ValueTask<IWrappedIdbCursorSource> GetSourceAsync()
         {
             throw new NotImplementedException();
         }

@@ -1,0 +1,132 @@
+﻿@page "/test5"
+@using System.Diagnostics
+
+<div>Loaded. Results are in the console.</div>
+
+@inject ILogger<Test2> Logger
+@code
+{
+    class MaybeNullStruct<T> : IAsyncDisposable where T : struct
+    {
+        public delegate T Conversion(IJSObjectReference jsObject);
+
+        private readonly IJSObjectReference r;
+        private readonly Conversion? conversion;
+        private readonly bool disposeAfterConversion;
+        public MaybeNullStruct(
+            IJSObjectReference r,
+            Conversion? conversionIfRequired,
+            bool disposeJsObjectAfterConversion)
+        {
+            this.r = r;
+            this.conversion = conversionIfRequired;
+            this.disposeAfterConversion = disposeJsObjectAfterConversion;
+        }
+
+        public async ValueTask DisposeAsync()
+        {
+            await this.r.DisposeAsync();
+        }
+
+        public async ValueTask<T?> GetValueAsync()
+        {
+            if (await r.InvokeAsync<bool>("isNull"))
+                return null;
+            if (conversion is null)
+                return await r.InvokeAsync<T>("getValue");
+            if (disposeAfterConversion)
+            {
+                await using var obj = await r.InvokeAsync<IJSObjectReference>("getValue");
+                return conversion(obj);
+            }
+            else
+            {
+                var obj = await r.InvokeAsync<IJSObjectReference>("getValue");
+                return conversion(obj);
+            }
+        }
+    }
+    class MaybeNull<T> : IAsyncDisposable where T : class
+    {
+        public delegate T Conversion(IJSObjectReference jsObject);
+
+        private readonly IJSObjectReference r;
+        private readonly Conversion? conversion;
+        private readonly bool disposeAfterConversion;
+        public MaybeNull(
+            IJSObjectReference r,
+            Conversion? conversionIfRequired,
+            bool disposeJsObjectAfterConversion)
+        {
+            this.r = r;
+            this.conversion = conversionIfRequired;
+            this.disposeAfterConversion = disposeJsObjectAfterConversion;
+        }
+
+        public async ValueTask DisposeAsync()
+        {
+            await this.r.DisposeAsync();
+        }
+
+        public async ValueTask<T?> GetValueAsync()
+        {
+            if (await r.InvokeAsync<bool>("isNull"))
+                return null;
+            if (conversion is null)
+                return await r.InvokeAsync<T>("getValue");
+            if (disposeAfterConversion)
+            {
+                await using var obj = await r.InvokeAsync<IJSObjectReference>("getValue");
+                return conversion(obj);
+            }
+            else
+            {
+                var obj = await r.InvokeAsync<IJSObjectReference>("getValue");
+                return conversion(obj);
+            }
+        }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        await using var module = await GetModule();
+        {
+            await using var n = await module.InvokeAsync<IJSObjectReference>("testFunction1", false);
+            await using var v = new MaybeNull<IJSObjectReference>(n, null, false);
+            await using var obj = await v.GetValueAsync();
+            Debug.Assert(obj is not null);
+            Logger.LogWarning("Got [{}].", await obj.InvokeAsync<string>("getValue"));
+        }
+
+        {
+            await using var n = await module.InvokeAsync<IJSObjectReference>("testFunction1", true);
+            await using var v = new MaybeNull<IJSObjectReference>(n, null, false);
+            await using var obj = await v.GetValueAsync();
+            Debug.Assert(obj is null);
+            Logger.LogWarning("Got [{}].", obj);
+        }
+
+        {
+            await using var n = await module.InvokeAsync<IJSObjectReference>("testFunction2", false);
+            await using var v = new MaybeNullStruct<int>(n, null, false);
+            Logger.LogWarning("Got [{}].", await v.GetValueAsync());
+        }
+
+        {
+            await using var n = await module.InvokeAsync<IJSObjectReference>("testFunction2", true);
+            await using var v = new MaybeNullStruct<int>(n, null, false);
+            Logger.LogWarning("Got [{}].", await v.GetValueAsync());
+        }
+    }
+}
+
+<PageTitle>Test</PageTitle>
+@inject IJSRuntime js
+@code {
+    private async Task<IJSObjectReference> GetModule()
+    {
+        var typeName = this.GetType().Name;
+        return await js.InvokeAsync<IJSObjectReference>(
+            "import",
+            $"./generated/scripts/{typeName}.js");
+    }
+}

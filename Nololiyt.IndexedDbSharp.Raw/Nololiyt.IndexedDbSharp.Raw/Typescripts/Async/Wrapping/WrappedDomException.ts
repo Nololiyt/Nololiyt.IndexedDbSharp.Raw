@@ -1,4 +1,6 @@
-﻿export class WrappedDomException
+﻿import { ValueOrUndefined } from "../UnionReturn/ValueOrUndefined";
+
+export class WrappedDomException
 {
     private wrapped;
     constructor(wrapped: DOMException)
@@ -21,9 +23,9 @@
         return this.wrapped.name;
     }
 
-    stack(): string | undefined
+    stack(): ValueOrUndefined<string>
     {
-        return this.wrapped.stack;
+        return new ValueOrUndefined(this.wrapped.stack);
     }
     
     code(): number

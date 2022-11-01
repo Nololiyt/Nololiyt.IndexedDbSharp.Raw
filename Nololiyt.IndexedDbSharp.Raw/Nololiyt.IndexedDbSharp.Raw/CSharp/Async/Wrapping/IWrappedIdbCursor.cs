@@ -22,9 +22,6 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Wrapping
         ValueTask<IdbValidKey> GetKeyAsync();
         ValueTask<IdbValidKey> GetPrimaryKeyAsync();
         ValueTask<IWrappedIdbRequest<TResult>> RequestAsync<TResult>();
-        ValueTask<object> GetSourceAsync();
-        ValueTask<dynamic> GetSourceDynamicAsync();
-        ValueTask<IWrappedIdbObjectStore> GetSourceObjectStoreAsync();
-        ValueTask<IWrappedIdbIndex> GetSourceIndexAsync();
+        ValueTask<IWrappedIdbCursorSource> GetSourceAsync();
     }
 }

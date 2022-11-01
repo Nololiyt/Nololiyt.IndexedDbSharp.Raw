@@ -15,8 +15,9 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.EventObjects
     public sealed class EventObjectOfIdbRequestOfIdbDatabase
         : EventObject<IWrappedIdbRequest<IWrappedIdbDatabase>>
     {
-        private static readonly SelfConversion conversion 
-            = (s) => new WrappedIdbRequest<IWrappedIdbDatabase>(s);
+        private static readonly SelfConversion conversion = (s) => {
+            return new WrappedIdbRequest<IWrappedIdbDatabase>(s, d => new WrappedIdbDatabase(d));
+        };
 
         public EventObjectOfIdbRequestOfIdbDatabase(
             JsEventHandler<IWrappedIdbRequest<IWrappedIdbDatabase>> handler)
@@ -27,7 +28,7 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.EventObjects
         : EventObject<IWrappedIdbRequest<IWrappedIdbTransaction>>
     {
         private static readonly SelfConversion conversion = (s) => {
-            throw new NotImplementedException();
+            return new WrappedIdbRequest<IWrappedIdbTransaction>(s, t => new WrappedIdbTransaction(t));
         };
 
         public EventObjectOfIdbRequestOfIdbTransaction(
@@ -39,7 +40,7 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.EventObjects
         : EventObject<IWrappedIdbRequest<T>>
     {
         private static readonly SelfConversion conversion = (s) => {
-            throw new NotImplementedException();
+            return new WrappedIdbRequest<T>(s);
         };
 
         public EventObjectOfIdbRequest(
