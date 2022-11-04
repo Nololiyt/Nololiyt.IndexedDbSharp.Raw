@@ -11,8 +11,8 @@
         return this.value;
     }
 
-    hasValue(): boolean
+    isNull(): boolean
     {
-        return this.value !== null;
+        return this.value === null;
     }
 }

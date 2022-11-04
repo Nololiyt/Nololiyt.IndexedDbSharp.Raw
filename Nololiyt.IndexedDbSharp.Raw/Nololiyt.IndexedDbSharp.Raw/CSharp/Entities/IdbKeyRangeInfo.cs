@@ -8,13 +8,11 @@ using System.Threading.Tasks;
 
 namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Entities
 {
-    public sealed class IdbKeyRangeInfo
+    public sealed record IdbKeyRangeInfo(
+        IdbKeyRangeBoundMode BoundMode, 
+        object? Lower, bool LowerOpen,
+        object? Upper, bool UpperOpen)
     {
-        public object? Lower { get; }
-        public bool LowerOpen { get; }
-        public object? Upper { get; }
-        public bool UpperOpen { get; }
-        public IdbKeyRangeBoundMode BoundMode { get; }
         public static IdbKeyRangeInfo LowerBound<T>(T lower, bool open = false)
         {
             return new IdbKeyRangeInfo(
@@ -43,63 +41,6 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Entities
                 IdbKeyRangeBoundMode.Bound,
                 value, false,
                 value, false);
-        }
-        internal IdbKeyRangeInfo(
-            IdbKeyRangeBoundMode boundMode,
-            object? lower, 
-            bool lowerOpen,
-            object? upper, 
-            bool upperOpen)
-        {
-            this.Lower = lower;
-            this.LowerOpen = lowerOpen;
-            this.Upper = upper;
-            this.UpperOpen = upperOpen;
-            this.BoundMode = boundMode;
-        }
-        public override bool Equals(object? obj)
-        {
-            if (obj is not IdbKeyRangeInfo other)
-                return false;
-            return
-                this.UpperOpen == other.UpperOpen &&
-                this.LowerOpen == other.LowerOpen &&
-                this.BoundMode.Equals(other.BoundMode) &&
-                object.Equals(this.Lower, other.Lower) &&
-                object.Equals(this.Upper, other.Upper);
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(
-                this.BoundMode, this.Lower, this.LowerOpen, this.Upper, this.UpperOpen);
-        }
-
-        public override string ToString()
-        {
-            var left = this.LowerOpen ? "(" : "[";
-            var right = this.UpperOpen ? ")" : "]";
-
-            string? lower;
-            string? upper;
-
-            if (this.BoundMode == IdbKeyRangeBoundMode.LowerBound)
-            {
-                lower = this.Lower?.ToString();
-                upper = "Infinity";
-            }
-            else if (this.BoundMode == IdbKeyRangeBoundMode.UpperBound)
-            {
-                upper = this.Upper?.ToString();
-                lower = "Infinity";
-            }
-            else
-            {
-                lower = this.Lower?.ToString();
-                upper = this.Upper?.ToString();
-            }
-
-            return $"{left}{lower}, {upper}{right}";
         }
     }
 }
