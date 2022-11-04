@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Entities
 {
-    public sealed class IdbTransactionOptions
+    public sealed record IdbTransactionOptions(IdbTransactionDurability Durability)
     {
     }
 }

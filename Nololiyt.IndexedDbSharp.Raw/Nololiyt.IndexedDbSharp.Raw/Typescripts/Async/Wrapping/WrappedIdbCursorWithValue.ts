@@ -2,7 +2,6 @@
 import { WrappedIdbObjectStore } from "./WrappedIdbObjectStore.js";
 import { WrappedIdbIndex } from "./WrappedIdbIndex.js";
 import { IdbCursorSource } from "../UnionReturn/IdbCursorSource.js";
-import { AnyReturn } from "../UnionReturn/AnyReturn.js";
 
 export class WrappedIdbCursorWithValue
 {
@@ -79,8 +78,8 @@ export class WrappedIdbCursorWithValue
         return new WrappedIdbRequestOfIdbValidKey(result);
     }
 
-    value(): AnyReturn
+    value(): any
     {
-        return new AnyReturn(this.wrapped.value);
+        return this.wrapped.value;
     }
 }

@@ -13,11 +13,9 @@ using System.Transactions;
 
 namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Wrapping
 {
-    public interface IWrappedIdbRequestBase<T> : IWrappedWrappedJsObject
+    public interface IWrappedIdbRequestOfIdbCursor : IWrappedIdbRequestBase<IWrappedIdbCursor?>
     {
-        ValueTask<T> GetResultAsync();
-        ValueTask<IdbRequestReadyState> GetReadyStateAsync();
-        ValueTask<IWrappedIdbRequestSource> GetSourceAsync();
-        ValueTask<IWrappedIdbTransaction?> GetTransactionAsync();
+        ValueTask SetOnErrorAsync(EventObjectOfIdbRequestOfIdbCursor? callbackObject);
+        ValueTask SetOnSuccessAsync(EventObjectOfIdbRequestOfIdbCursor? callbackObject);
     }
 }

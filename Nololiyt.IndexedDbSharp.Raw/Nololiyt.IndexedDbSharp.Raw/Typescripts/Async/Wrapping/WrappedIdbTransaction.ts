@@ -1,5 +1,5 @@
 ﻿import { DotNetCallbackObject, invokeDotNetCallbackAsync } from "../Entities/DotNetCallbackObject.js";
-import { ValueOrNull } from "../UnionReturn/ValueOrNull.js";
+import { ObjectOrNull } from "../UnionReturn/ObjectOrNull.js";
 import { WrappedDomException } from "./WrappedDomException.js";
 import { WrappedEvent } from "./WrappedEvent.js";
 import { WrappedIdbDatabase } from "./WrappedIDbDatabase.js";
@@ -39,12 +39,12 @@ export class WrappedIdbTransaction
         return this.wrapped.durability;
     }
 
-    error(): ValueOrNull<WrappedDomException>
+    error(): ObjectOrNull<WrappedDomException>
     {
         const result = this.wrapped.error;
         if (result)
-            return new ValueOrNull(new WrappedDomException(result));
-        return new ValueOrNull<WrappedDomException>(null);
+            return new ObjectOrNull(new WrappedDomException(result));
+        return new ObjectOrNull<WrappedDomException>(null);
     }
 
     mode(): IDBTransactionMode

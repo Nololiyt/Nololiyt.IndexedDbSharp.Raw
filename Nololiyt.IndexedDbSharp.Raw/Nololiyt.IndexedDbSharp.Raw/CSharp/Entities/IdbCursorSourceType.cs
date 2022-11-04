@@ -1,12 +1,15 @@
-﻿using System;
+﻿using Nololiyt.IndexedDbSharp.Raw.CSharp.Entities.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Entities
 {
+    [JsonConverter(typeof(ToStringAndTryParseConverter<IdbCursorSourceType>))]
     public struct IdbCursorSourceType
     {
         private readonly int type;
@@ -37,6 +40,8 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Entities
                 _ => "objectStore"
             };
         }
+        public static IdbCursorSourceType Index => new(0);
+        public static IdbCursorSourceType ObjectStore => new(1);
 
         public override bool Equals([NotNullWhen(true)] object? obj)
         {

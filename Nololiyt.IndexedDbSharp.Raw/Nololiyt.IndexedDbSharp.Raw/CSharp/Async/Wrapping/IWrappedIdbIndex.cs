@@ -12,63 +12,64 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Wrapping
 {
     public interface IWrappedIdbIndex : IWrappedWrappedJsObject
     {
-        ValueTask<IWrappedIdbRequest<long>> CountAsync();
-        ValueTask<IWrappedIdbRequest<long>> CountAsync(IdbValidKey query);
-        ValueTask<IWrappedIdbRequest<long>> CountAsync(IdbKeyRangeInfo query);
-        ValueTask<IWrappedIdbRequest<TValue>> GetAsync<TValue>(IdbValidKey query);
-        ValueTask<IWrappedIdbRequest<TValue>> GetAsync<TValue>(IdbKeyRangeInfo query);
-        ValueTask<IWrappedIdbRequest<TResultElement[]>> GetAllAsync<TResultElement>();
-        ValueTask<IWrappedIdbRequest<TResultElement[]>> GetAllAsync<TResultElement>(
-            IdbValidKey? query);
-        ValueTask<IWrappedIdbRequest<TResultElement[]>> GetAllAsync<TResultElement>(
+        ValueTask<IWrappedIdbRequestOfValue<long>> CountAsync();
+        ValueTask<IWrappedIdbRequestOfValue<long>> CountAsync<TKey>(TKey query);
+        ValueTask<IWrappedIdbRequestOfValue<long>> CountAsync(IdbKeyRangeInfo query);
+        ValueTask<IWrappedIdbRequestOfValue<TValue>> GetAsync<TKey, TValue>(TKey query);
+        ValueTask<IWrappedIdbRequestOfValue<TValue>> GetAsync<TValue>(IdbKeyRangeInfo query);
+        ValueTask<IWrappedIdbRequestOfValue<TResultElement[]>> GetAllAsync<TResultElement>();
+        ValueTask<IWrappedIdbRequestOfValue<TResultElement[]>> GetAllAsync<TKey, TResultElement>(
+            TKey? query);
+        ValueTask<IWrappedIdbRequestOfValue<TResultElement[]>> GetAllAsync<TResultElement>(
             IdbKeyRangeInfo? query);
-        ValueTask<IWrappedIdbRequest<TResultElement[]>> GetAllAsync<TResultElement>(
+        ValueTask<IWrappedIdbRequestOfValue<TResultElement[]>> GetAllAsync<TResultElement>(
             int count);
-        ValueTask<IWrappedIdbRequest<TResultElement[]>> GetAllAsync<TResultElement>(
-            IdbValidKey? query, int count);
-        ValueTask<IWrappedIdbRequest<TResultElement[]>> GetAllAsync<TResultElement>(
+        ValueTask<IWrappedIdbRequestOfValue<TResultElement[]>> GetAllAsync<TKey, TResultElement>(
+            TKey? query, int count);
+        ValueTask<IWrappedIdbRequestOfValue<TResultElement[]>> GetAllAsync<TResultElement>(
             IdbKeyRangeInfo? query, int count);
 
-        ValueTask<IWrappedIdbRequest<IdbValidKey[]>> GetAllKeysAsync();
-        ValueTask<IWrappedIdbRequest<IdbValidKey[]>> GetAllKeysAsync(
-            IdbValidKey? query);
-        ValueTask<IWrappedIdbRequest<IdbValidKey[]>> GetAllKeysAsync(
+        ValueTask<IWrappedIdbRequestOfValue<TResultKeyElement[]>> GetAllKeysAsync<TResultKeyElement>();
+        ValueTask<IWrappedIdbRequestOfValue<TResultKeyElement[]>> GetAllKeysAsync<TKey, TResultKeyElement>(
+            TKey? query);
+        ValueTask<IWrappedIdbRequestOfValue<TResultKeyElement[]>> GetAllKeysAsync<TResultKeyElement>(
             IdbKeyRangeInfo? query);
-        ValueTask<IWrappedIdbRequest<IdbValidKey[]>> GetAllKeysAsync(
+        ValueTask<IWrappedIdbRequestOfValue<TResultKeyElement[]>> GetAllKeysAsync<TResultKeyElement>(
             int count);
-        ValueTask<IWrappedIdbRequest<IdbValidKey[]>> GetAllKeysAsync(
-            IdbValidKey? query, int count);
-        ValueTask<IWrappedIdbRequest<IdbValidKey[]>> GetAllKeysAsync(
+        ValueTask<IWrappedIdbRequestOfValue<TResultKeyElement[]>> GetAllKeysAsync<TKey, TResultKeyElement>(
+            TKey? query, int count);
+        ValueTask<IWrappedIdbRequestOfValue<TResultKeyElement[]>> GetAllKeysAsync<TResultKeyElement>(
             IdbKeyRangeInfo? query, int count);
 
-        ValueTask<IWrappedIdbRequest<IdbValidKey?>> GetKeyAsync(IdbValidKey query);
-        ValueTask<IWrappedIdbRequest<IdbValidKey?>> GetKeyAsync(IdbKeyRangeInfo query);
+        ValueTask<IWrappedIdbRequestOfValue<TResultKey?>> GetKeyAsync<TKey, TResultKey>(TKey query);
+        ValueTask<IWrappedIdbRequestOfValue<TResultKey?>> GetKeyAsync<TResultKey>(
+            IdbKeyRangeInfo query);
         ValueTask<IdbKeyPath> GetKeyPathAsync();
         ValueTask<bool> GetMultiEntryAsync();
         ValueTask<string> GetNameAsync();
         ValueTask<IWrappedIdbObjectStore> GetObjectStoreAsync();
-        ValueTask<IWrappedIdbRequest<IWrappedIdbCursorWithValue?>> OpenCursorAsync();
-        ValueTask<IWrappedIdbRequest<IWrappedIdbCursorWithValue?>> OpenCursorAsync(
-            IdbValidKey? query);
-        ValueTask<IWrappedIdbRequest<IWrappedIdbCursorWithValue?>> OpenCursorAsync(
+        ValueTask<IWrappedIdbRequestOfIdbCursorWithValue> OpenCursorAsync();
+        ValueTask<IWrappedIdbRequestOfIdbCursorWithValue> OpenCursorAsync<TKey>(
+            TKey? query);
+        ValueTask<IWrappedIdbRequestOfIdbCursorWithValue> OpenCursorAsync(
             IdbKeyRangeInfo? query);
-        ValueTask<IWrappedIdbRequest<IWrappedIdbCursorWithValue?>> OpenCursorAsync(
+        ValueTask<IWrappedIdbRequestOfIdbCursorWithValue> OpenCursorAsync(
             IdbCursorDirection direction);
-        ValueTask<IWrappedIdbRequest<IWrappedIdbCursorWithValue?>> OpenCursorAsync(
-            IdbValidKey? query, IdbCursorDirection direction);
-        ValueTask<IWrappedIdbRequest<IWrappedIdbCursorWithValue?>> OpenCursorAsync(
+        ValueTask<IWrappedIdbRequestOfIdbCursorWithValue> OpenCursorAsync<TKey>(
+            TKey? query, IdbCursorDirection direction);
+        ValueTask<IWrappedIdbRequestOfIdbCursorWithValue> OpenCursorAsync(
             IdbKeyRangeInfo? query, IdbCursorDirection direction);
 
-        ValueTask<IWrappedIdbRequest<IWrappedIdbCursor?>> OpenKeyCursorAsync();
-        ValueTask<IWrappedIdbRequest<IWrappedIdbCursor?>> OpenKeyCursorAsync(
-            IdbValidKey? query);
-        ValueTask<IWrappedIdbRequest<IWrappedIdbCursor?>> OpenKeyCursorAsync(
+        ValueTask<IWrappedIdbRequestOfIdbCursor> OpenKeyCursorAsync();
+        ValueTask<IWrappedIdbRequestOfIdbCursor> OpenKeyCursorAsync<TKey>(
+            TKey? query);
+        ValueTask<IWrappedIdbRequestOfIdbCursor> OpenKeyCursorAsync(
             IdbKeyRangeInfo? query);
-        ValueTask<IWrappedIdbRequest<IWrappedIdbCursor?>> OpenKeyCursorAsync(
+        ValueTask<IWrappedIdbRequestOfIdbCursor> OpenKeyCursorAsync(
             IdbCursorDirection direction);
-        ValueTask<IWrappedIdbRequest<IWrappedIdbCursor?>> OpenKeyCursorAsync(
-            IdbValidKey? query, IdbCursorDirection direction);
-        ValueTask<IWrappedIdbRequest<IWrappedIdbCursor?>> OpenKeyCursorAsync(
+        ValueTask<IWrappedIdbRequestOfIdbCursor> OpenKeyCursorAsync<TKey>(
+            TKey? query, IdbCursorDirection direction);
+        ValueTask<IWrappedIdbRequestOfIdbCursor> OpenKeyCursorAsync(
             IdbKeyRangeInfo? query, IdbCursorDirection direction);
 
         ValueTask<bool> GetUniqueAsync();

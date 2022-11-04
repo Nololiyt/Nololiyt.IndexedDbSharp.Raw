@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Entities
-{
-    public sealed class IdbValidKey
-    {
-    }
-}
+﻿/*
+This class is removed.
+It will make the result hard to use,
+and may break Blazor's "optimized byte array JS interop".
+*/

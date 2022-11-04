@@ -13,8 +13,8 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Wrapping
         ValueTask<IdbTransactionMode> GetModeAsync();
         ValueTask<IWrappedIdbObjectStore> ObjectStoreAsync(string name);
         ValueTask<string[]> GetObjectStoreNamesAsync();
-        ValueTask SetOnAbortAsync(EventObjectOfIdbRequestOfIdbTransaction? callbackObject);
-        ValueTask SetOnCompleteAsync(EventObjectOfIdbRequestOfIdbTransaction? callbackObject);
-        ValueTask SetOnErrorAsync(EventObjectOfIdbRequestOfIdbTransaction? callbackObject);
+        ValueTask SetOnAbortAsync(EventObjectOfIdbTransaction? callbackObject);
+        ValueTask SetOnCompleteAsync(EventObjectOfIdbTransaction? callbackObject);
+        ValueTask SetOnErrorAsync(EventObjectOfIdbTransaction? callbackObject);
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Entities
 {
-    public sealed class IdbIndexParameters
-    {
-    }
+    public sealed record IdbIndexParameters(
+        SerializableNullable<bool> MultiEntry, 
+        SerializableNullable<bool> Unique);
 }

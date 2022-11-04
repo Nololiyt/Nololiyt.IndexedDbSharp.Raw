@@ -1,12 +1,15 @@
-﻿using System;
+﻿using Nololiyt.IndexedDbSharp.Raw.CSharp.Entities.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Entities
 {
+    [JsonConverter(typeof(ToStringAndTryParseConverter<IdbTransactionDurability>))]
     public struct IdbTransactionDurability
     {
         private readonly int durability;
@@ -31,6 +34,9 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Entities
             return true;
         }
 
+        public static IdbTransactionDurability Default => new (0);
+        public static IdbTransactionDurability Relaxed => new(1);
+        public static IdbTransactionDurability Strict => new(2);
         public override string ToString()
         {
             return durability switch {

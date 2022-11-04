@@ -1,4 +1,4 @@
-﻿export class ValueOrNull<T>
+﻿export class ObjectOrNull<T>
 {
     private value;
     constructor(value: T | null)

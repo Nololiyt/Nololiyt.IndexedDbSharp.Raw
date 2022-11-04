@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Entities
 {
-    public sealed class IdbDatabaseInfo
-    {
-    }
+    public sealed record IdbDatabaseInfo(
+        string? Name, 
+        SerializableNullable<int> Version);
 }

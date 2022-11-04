@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Entities
 {
-    public sealed class IdbObjectStoreParameters
-    {
-    }
+    public sealed record IdbObjectStoreParameters(
+        SerializableNullable<bool> AutoIncrement,
+        IdbKeyPath? KeyPath)
+    { }
 }

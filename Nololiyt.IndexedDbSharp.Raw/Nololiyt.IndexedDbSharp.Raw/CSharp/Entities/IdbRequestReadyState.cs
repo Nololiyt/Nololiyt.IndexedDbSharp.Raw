@@ -1,12 +1,15 @@
-﻿using System;
+﻿using Nololiyt.IndexedDbSharp.Raw.CSharp.Entities.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Entities
 {
+    [JsonConverter(typeof(ToStringAndTryParseConverter<IdbRequestReadyState>))]
     public struct IdbRequestReadyState
     {
         private readonly int state;
@@ -29,6 +32,8 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Entities
             state = new IdbRequestReadyState(value);
             return true;
         }
+        public static IdbRequestReadyState Done => new(0);
+        public static IdbRequestReadyState Pending => new(1);
 
         public override string ToString()
         {

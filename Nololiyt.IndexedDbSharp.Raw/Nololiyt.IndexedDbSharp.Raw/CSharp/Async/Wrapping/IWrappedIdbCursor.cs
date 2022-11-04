@@ -15,13 +15,15 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Wrapping
     {
         ValueTask AdvanceAsync(int count);
         ValueTask ContinueAsync();
-        ValueTask ContinueAsync(IdbValidKey key);
-        ValueTask ContinuePrimaryKeyAsync(IdbValidKey key, IdbValidKey primaryKey);
+        ValueTask ContinueAsync<TKey>(TKey key);
+        ValueTask ContinuePrimaryKeyAsync<TKey, TPrimaryKey>(TKey key, TPrimaryKey primaryKey);
         ValueTask<IWrappedIdbRequestOfUndefined> DeleteAsync();
         ValueTask<IdbCursorDirection> GetDirectionAsync();
-        ValueTask<IdbValidKey> GetKeyAsync();
-        ValueTask<IdbValidKey> GetPrimaryKeyAsync();
-        ValueTask<IWrappedIdbRequest<TResult>> RequestAsync<TResult>();
+        ValueTask<TResultKey> GetKeyAsync<TResultKey>();
+        ValueTask<TResultKey> GetPrimaryKeyAsync<TResultKey>();
+
+#warning The return type in Typescript is 'WrappedIdbRequest<any>'
+        ValueTask<IWrappedIdbRequestOfIdbCursor> GetRequestAsync<TResult>();
         ValueTask<IWrappedIdbCursorSource> GetSourceAsync();
     }
 }

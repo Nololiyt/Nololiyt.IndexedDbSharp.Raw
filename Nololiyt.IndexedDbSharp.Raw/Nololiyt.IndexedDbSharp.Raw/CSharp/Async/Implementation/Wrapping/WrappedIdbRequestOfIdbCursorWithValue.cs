@@ -5,9 +5,9 @@ using Nololiyt.IndexedDbSharp.Raw.CSharp.Entities;
 
 namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
 {
-    internal sealed class WrappedIdbOpenDbRequest :  WrappedWrappedJsObjectBase, IWrappedIdbOpenDbRequest
+    internal sealed class WrappedIdbRequestOfIdbCursorWithValue : WrappedWrappedJsObjectBase, IWrappedIdbRequestOfIdbCursorWithValue
     {
-        public WrappedIdbOpenDbRequest(IJSObjectReference wrappedObject) : base(wrappedObject)
+        public WrappedIdbRequestOfIdbCursorWithValue(IJSObjectReference wrappedObject) : base(wrappedObject)
         {
         }
 
@@ -16,7 +16,7 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
             throw new NotImplementedException();
         }
 
-        public ValueTask<IWrappedIdbDatabase> GetResultAsync()
+        public ValueTask<IWrappedIdbCursorWithValue> GetResultAsync()
         {
             throw new NotImplementedException();
         }
@@ -31,22 +31,12 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
             throw new NotImplementedException();
         }
 
-        public ValueTask SetOnBlockedAsync(EventObjectOfIdbRequestOfIdbDatabase? callbackObject)
+        public ValueTask SetOnErrorAsync(EventObjectOfIdbRequestOfIdbCursorWithValue? callbackObject)
         {
             throw new NotImplementedException();
         }
 
-        public ValueTask SetOnErrorAsync(EventObjectOfIdbRequestOfIdbDatabase? callbackObject)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ValueTask SetOnSuccessAsync(EventObjectOfIdbRequestOfIdbDatabase? callbackObject)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ValueTask SetOnUpgradeNeededAsync(EventObjectOfIdbRequestOfIdbDatabase? callbackObject)
+        public ValueTask SetOnSuccessAsync(EventObjectOfIdbRequestOfIdbCursorWithValue? callbackObject)
         {
             throw new NotImplementedException();
         }

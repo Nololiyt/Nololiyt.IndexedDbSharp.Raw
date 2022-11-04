@@ -18,7 +18,8 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Wrapping
     {
         ValueTask CloseAsync();
         ValueTask<IWrappedIdbObjectStore> CreateObjectStoreAsync(string name);
-        ValueTask<IWrappedIdbObjectStore> CreateObjectStoreAsync(string name, IdbObjectStoreParameters options);
+        ValueTask<IWrappedIdbObjectStore> CreateObjectStoreAsync(
+            string name, IdbObjectStoreParameters options);
         ValueTask DeleteObjectStoreAsync(string name);
         ValueTask<string> GetNameAsync();
         ValueTask<string[]> GetObjectStoreNamesAsync();

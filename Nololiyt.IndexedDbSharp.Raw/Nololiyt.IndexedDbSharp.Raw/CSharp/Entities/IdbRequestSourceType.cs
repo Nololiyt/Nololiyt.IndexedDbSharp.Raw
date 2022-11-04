@@ -1,12 +1,15 @@
-﻿using System;
+﻿using Nololiyt.IndexedDbSharp.Raw.CSharp.Entities.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Entities
 {
+    [JsonConverter(typeof(ToStringAndTryParseConverter<IdbRequestSourceType>))]
     public struct IdbRequestSourceType
     {
         private readonly int type;
@@ -30,6 +33,10 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Entities
             type = new IdbRequestSourceType(value);
             return true;
         }
+
+        public static IdbRequestSourceType ObjectStore => new(0);
+        public static IdbRequestSourceType Index => new(1);
+        public static IdbRequestSourceType Cursor => new(2);
 
         public override string ToString()
         {

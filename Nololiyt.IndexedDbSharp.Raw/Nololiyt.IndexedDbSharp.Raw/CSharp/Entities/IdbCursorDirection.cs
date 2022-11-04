@@ -1,12 +1,15 @@
-﻿using System;
+﻿using Nololiyt.IndexedDbSharp.Raw.CSharp.Entities.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Entities
 {
+    [JsonConverter(typeof(ToStringAndTryParseConverter<IdbCursorDirection>))]
     public struct IdbCursorDirection
     {
         private readonly int direction;
@@ -41,6 +44,11 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Entities
                 _ => "next"
             };
         }
+
+        public static IdbCursorDirection NextUnique => new(0);
+        public static IdbCursorDirection Prev => new(1);
+        public static IdbCursorDirection PrevUnique => new(2);
+        public static IdbCursorDirection Next => new(3);
 
         public override bool Equals([NotNullWhen(true)] object? obj)
         {

@@ -9,46 +9,47 @@ using System.Threading.Tasks;
 
 namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Entities
 {
-    [JsonConverter(typeof(ToStringAndTryParseConverter<IdbTransactionMode>))]
-    public struct IdbTransactionMode
+    [JsonConverter(typeof(ToStringAndTryParseConverter<IdbKeyRangeBoundMode>))]
+    public struct IdbKeyRangeBoundMode
     {
         private readonly int mode;
-        private IdbTransactionMode(int mode)
+        private IdbKeyRangeBoundMode(int mode)
         {
             this.mode = mode;
         }
-        public static bool TryParse(string s, out IdbTransactionMode mode)
+        public static bool TryParse(string s, out IdbKeyRangeBoundMode type)
         {
             int value = s switch {
-                "readonly" => 0,
-                "readwrite" => 1,
-                "versionchange" => 2,
+                "bound" => 0,
+                "lowerBound" => 1,
+                "upperBound" => 2,
                 _ => -1
             };
             if(value < 0)
             {
-                mode = default;
+                type = default;
                 return false;
             }
-            mode = new IdbTransactionMode(value);
+            type = new IdbKeyRangeBoundMode(value);
             return true;
         }
 
-        public static IdbTransactionMode ReadOnly => new (0);
-        public static IdbTransactionMode ReadWrite => new(1);
-        public static IdbTransactionMode VersionChange => new(2);
         public override string ToString()
         {
             return mode switch {
-                1 => "readwrite",
-                2 => "versionchange",
-                _ => "readonly"
+                1 => "lowerBound",
+                2 => "upperBound",
+                _ => "bound"
             };
         }
 
+        public static IdbKeyRangeBoundMode Bound => new(0);
+        public static IdbKeyRangeBoundMode LowerBound => new(1);
+        public static IdbKeyRangeBoundMode UpperBound => new(2);
+
         public override bool Equals([NotNullWhen(true)] object? obj)
         {
-            if(obj is not IdbTransactionMode mode)
+            if(obj is not IdbKeyRangeBoundMode mode)
                 return false;
             return this.mode == mode.mode;
         }
@@ -58,12 +59,12 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Entities
             return mode.GetHashCode();
         }
 
-        public static bool operator ==(IdbTransactionMode left, IdbTransactionMode right)
+        public static bool operator ==(IdbKeyRangeBoundMode left, IdbKeyRangeBoundMode right)
         {
             return left.Equals(right);
         }
 
-        public static bool operator !=(IdbTransactionMode left, IdbTransactionMode right)
+        public static bool operator !=(IdbKeyRangeBoundMode left, IdbKeyRangeBoundMode right)
         {
             return !(left == right);
         }

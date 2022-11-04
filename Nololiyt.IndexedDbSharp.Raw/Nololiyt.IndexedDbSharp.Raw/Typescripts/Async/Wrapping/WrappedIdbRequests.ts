@@ -7,8 +7,7 @@ import { WrappedIdbCursorWithValue } from "./WrappedIdbCursorWithValue.js";
 import { WrappedIdbDatabase } from "./WrappedIDbDatabase.js";
 import { DotNetCallbackObject, invokeDotNetCallbackAsync } from "../Entities/DotNetCallbackObject.js";
 import { IdbRequestSource } from "../UnionReturn/IdbRequestSource.js";
-import { ValueOrNull } from "../UnionReturn/ValueOrNull.js";
-import { AnyReturn } from "../UnionReturn/AnyReturn.js";
+import { ObjectOrNull } from "../UnionReturn/ObjectOrNull.js";
 
 export class WrappedIdbRequest<TWrapped, T>
 {
@@ -77,51 +76,51 @@ export class WrappedIdbRequest<TWrapped, T>
         return new IdbRequestSource(new WrappedIdbCursor(source));
     }
 
-    transaction(): ValueOrNull<WrappedIdbTransaction>
+    transaction(): ObjectOrNull<WrappedIdbTransaction>
     {
         const transaction = this.wrapped.transaction;
         if (transaction)
-            return new ValueOrNull(new WrappedIdbTransaction(transaction));
+            return new ObjectOrNull(new WrappedIdbTransaction(transaction));
         else
-            return new ValueOrNull<WrappedIdbTransaction>(null);
+            return new ObjectOrNull<WrappedIdbTransaction>(null);
     }
 
     // Methods addEventListener, removeEventListener and dispatchEvent are currently not provided.
     // The properties like onsuccess, onerror, ... are currently unreadable.
 }
 
-export class WrappedIdbRequestOfAny extends WrappedIdbRequest<any, AnyReturn>
+export class WrappedIdbRequestOfAny extends WrappedIdbRequest<any, any>
 {
     constructor(wrapped: IDBRequest<any>)
     {
         super(wrapped, (result) =>
         {
-            return new AnyReturn(result);
+            return result;
         });
     }
 }
 
-export class WrappedIdbRequestOfAnyArray extends WrappedIdbRequest<any[], AnyReturn[]>
+export class WrappedIdbRequestOfAnyArray extends WrappedIdbRequest<any[], any[]>
 {
     constructor(wrapped: IDBRequest<any[]>)
     {
         super(wrapped, (result) =>
         {
-            return result.map((value, _index, _array) => new AnyReturn(value));
+            return result;
         });
     }
 }
 
 export class WrappedIdbRequestOfIdbCursorOrNull
-    extends WrappedIdbRequest<IDBCursor | null, ValueOrNull<WrappedIdbCursor>>
+    extends WrappedIdbRequest<IDBCursor | null, ObjectOrNull<WrappedIdbCursor>>
 {
     constructor(wrapped: IDBRequest<IDBCursor | null>)
     {
         super(wrapped, (result) =>
         {
             if (result === null)
-                return new ValueOrNull<WrappedIdbCursor>(null);
-            return new ValueOrNull(new WrappedIdbCursor(result));
+                return new ObjectOrNull<WrappedIdbCursor>(null);
+            return new ObjectOrNull(new WrappedIdbCursor(result));
         });
     }
 }

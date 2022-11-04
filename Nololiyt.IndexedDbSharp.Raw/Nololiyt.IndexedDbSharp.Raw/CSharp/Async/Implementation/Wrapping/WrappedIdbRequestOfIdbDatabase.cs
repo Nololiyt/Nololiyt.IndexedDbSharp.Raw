@@ -5,9 +5,9 @@ using Nololiyt.IndexedDbSharp.Raw.CSharp.Entities;
 
 namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
 {
-    internal sealed class WrappedIdbOpenDbRequest :  WrappedWrappedJsObjectBase, IWrappedIdbOpenDbRequest
+    internal sealed class WrappedIdbRequestOfIdbDatabase : WrappedWrappedJsObjectBase, IWrappedIdbRequestOfIdbDatabase
     {
-        public WrappedIdbOpenDbRequest(IJSObjectReference wrappedObject) : base(wrappedObject)
+        public WrappedIdbRequestOfIdbDatabase(IJSObjectReference wrappedObject) : base(wrappedObject)
         {
         }
 
@@ -31,22 +31,12 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
             throw new NotImplementedException();
         }
 
-        public ValueTask SetOnBlockedAsync(EventObjectOfIdbRequestOfIdbDatabase? callbackObject)
-        {
-            throw new NotImplementedException();
-        }
-
         public ValueTask SetOnErrorAsync(EventObjectOfIdbRequestOfIdbDatabase? callbackObject)
         {
             throw new NotImplementedException();
         }
 
         public ValueTask SetOnSuccessAsync(EventObjectOfIdbRequestOfIdbDatabase? callbackObject)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ValueTask SetOnUpgradeNeededAsync(EventObjectOfIdbRequestOfIdbDatabase? callbackObject)
         {
             throw new NotImplementedException();
         }

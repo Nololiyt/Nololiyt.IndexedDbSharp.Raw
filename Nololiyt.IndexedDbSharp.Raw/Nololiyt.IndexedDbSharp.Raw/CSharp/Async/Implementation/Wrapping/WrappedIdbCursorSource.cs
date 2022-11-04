@@ -10,15 +10,18 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
             : base(wrappedObject)
         {
         }
-        public ValueTask<IdbCursorSourceType> GetSourceTypeAsync()
-        {
-            throw new NotImplementedException();
-        }
+
         public ValueTask<IWrappedIdbIndex?> GetSourceAsIndexAsync()
         {
             throw new NotImplementedException();
         }
+
         public ValueTask<IWrappedIdbObjectStore?> GetSourceAsObjectStoreAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ValueTask<IdbCursorSourceType> GetSourceTypeAsync()
         {
             throw new NotImplementedException();
         }

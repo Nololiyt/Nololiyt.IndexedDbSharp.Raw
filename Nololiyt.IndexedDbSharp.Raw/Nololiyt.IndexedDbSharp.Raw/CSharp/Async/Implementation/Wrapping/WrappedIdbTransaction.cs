@@ -51,17 +51,17 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
             throw new NotImplementedException();
         }
 
-        public ValueTask SetOnAbortAsync(EventObjectOfIdbRequestOfIdbTransaction? callbackObject)
+        public ValueTask SetOnAbortAsync(EventObjectOfIdbTransaction? callbackObject)
         {
             throw new NotImplementedException();
         }
 
-        public ValueTask SetOnCompleteAsync(EventObjectOfIdbRequestOfIdbTransaction? callbackObject)
+        public ValueTask SetOnCompleteAsync(EventObjectOfIdbTransaction? callbackObject)
         {
             throw new NotImplementedException();
         }
 
-        public ValueTask SetOnErrorAsync(EventObjectOfIdbRequestOfIdbTransaction? callbackObject)
+        public ValueTask SetOnErrorAsync(EventObjectOfIdbTransaction? callbackObject)
         {
             throw new NotImplementedException();
         }

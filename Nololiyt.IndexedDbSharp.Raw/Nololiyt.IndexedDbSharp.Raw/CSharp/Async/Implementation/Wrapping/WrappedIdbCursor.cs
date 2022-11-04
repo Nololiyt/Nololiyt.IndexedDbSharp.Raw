@@ -20,12 +20,12 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
             throw new NotImplementedException();
         }
 
-        public ValueTask ContinueAsync(IdbValidKey key)
+        public ValueTask ContinueAsync<TKey>(TKey key)
         {
             throw new NotImplementedException();
         }
 
-        public ValueTask ContinuePrimaryKeyAsync(IdbValidKey key, IdbValidKey primaryKey)
+        public ValueTask ContinuePrimaryKeyAsync<TKey, TPrimaryKey>(TKey key, TPrimaryKey primaryKey)
         {
             throw new NotImplementedException();
         }
@@ -40,22 +40,22 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
             throw new NotImplementedException();
         }
 
-        public ValueTask<IdbValidKey> GetKeyAsync()
+        public ValueTask<TResultKey> GetKeyAsync<TResultKey>()
         {
             throw new NotImplementedException();
         }
 
-        public ValueTask<IdbValidKey> GetPrimaryKeyAsync()
+        public ValueTask<TResultKey> GetPrimaryKeyAsync<TResultKey>()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ValueTask<IWrappedIdbRequestOfIdbCursor> GetRequestAsync<TResult>()
         {
             throw new NotImplementedException();
         }
 
         public ValueTask<IWrappedIdbCursorSource> GetSourceAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public ValueTask<IWrappedIdbRequest<TResult>> RequestAsync<TResult>()
         {
             throw new NotImplementedException();
         }

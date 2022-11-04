@@ -1,0 +1,53 @@
+﻿@page "/test6"
+
+<div>Loaded. Results are in the console.</div>
+
+@inject ILogger<Test2> Logger
+@code
+{
+    record AnObject(object? Obj);
+    protected override async Task OnInitializedAsync()
+    {
+        await using var module = await GetModule();
+        {
+            object obj = 1;
+            Logger.LogWarning("1. Type: {type}", await module.InvokeAsync<string>("testFunction1", obj));
+        }
+        {
+            var obj = new AnObject(1);
+            Logger.LogWarning("2. Type: {type}", await module.InvokeAsync<string>("testFunction1", obj));
+        }
+        {
+            var obj = new AnObject(1);
+            Logger.LogWarning("3. Type: {type}", await module.InvokeAsync<string>("testFunction2", obj));
+        }
+        {
+            var obj = new AnObject(null);
+            Logger.LogWarning("4. Type: {type}", await module.InvokeAsync<string>("testFunction2", obj));
+        }
+        {
+            var obj = new AnObject("ssss");
+            Logger.LogWarning("5. Type: {type}", await module.InvokeAsync<string>("testFunction2", obj));
+        }
+        {
+            var obj = new AnObject(new AnObject[] { new AnObject(1), new AnObject("2") });
+            Logger.LogWarning("6. Type: {type}", await module.InvokeAsync<string>("testFunction2", obj));
+        }
+        {
+            var obj = new AnObject(false);
+            Logger.LogWarning("7. Type: {type}", await module.InvokeAsync<string>("testFunction2", obj));
+        }
+    }
+}
+
+<PageTitle>Test</PageTitle>
+@inject IJSRuntime js
+@code {
+    private async Task<IJSObjectReference> GetModule()
+    {
+        var typeName = this.GetType().Name;
+        return await js.InvokeAsync<IJSObjectReference>(
+            "import",
+            $"./generated/scripts/{typeName}.js");
+    }
+}
