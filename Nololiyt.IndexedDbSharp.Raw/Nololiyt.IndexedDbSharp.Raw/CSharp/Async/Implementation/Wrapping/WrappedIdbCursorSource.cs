@@ -11,19 +11,30 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
         {
         }
 
-        public ValueTask<IWrappedIdbIndex?> GetSourceAsIndexAsync()
+        public async ValueTask<IWrappedIdbIndex?> GetSourceAsIndexAsync()
         {
-            throw new NotImplementedException();
+            var type = await this.GetSourceTypeAsync();
+            if(type != IdbCursorSourceType.Index)
+                return null;
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>("getValue");
+            return new WrappedIdbIndex(result);
         }
 
-        public ValueTask<IWrappedIdbObjectStore?> GetSourceAsObjectStoreAsync()
+        public async ValueTask<IWrappedIdbObjectStore?> GetSourceAsObjectStoreAsync()
         {
-            throw new NotImplementedException();
+            var type = await this.GetSourceTypeAsync();
+            if (type != IdbCursorSourceType.ObjectStore)
+                return null;
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>("getValue");
+            return new WrappedIdbObjectStore(result);
         }
 
-        public ValueTask<IdbCursorSourceType> GetSourceTypeAsync()
+        private IdbCursorSourceType? type = null;
+        public async ValueTask<IdbCursorSourceType> GetSourceTypeAsync()
         {
-            throw new NotImplementedException();
+            if (!type.HasValue)
+                type = await this.WrappedObject.InvokeAsync<IdbCursorSourceType>("getType");
+            return type.Value;
         }
     }
 }

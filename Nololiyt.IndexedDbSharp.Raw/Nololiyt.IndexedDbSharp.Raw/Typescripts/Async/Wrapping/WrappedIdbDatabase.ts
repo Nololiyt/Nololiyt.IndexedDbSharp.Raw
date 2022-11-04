@@ -109,6 +109,13 @@ export class WrappedIdbDatabase
         return new WrappedIdbTransaction(result);
     }
 
+    transactionSkipMode(
+        storeNames: string[],
+        options?: IDBTransactionOptions | undefined): WrappedIdbTransaction
+    {
+        return this.transaction(storeNames, undefined, options);
+    }
+
     version(): number
     {
         return this.wrapped.version;

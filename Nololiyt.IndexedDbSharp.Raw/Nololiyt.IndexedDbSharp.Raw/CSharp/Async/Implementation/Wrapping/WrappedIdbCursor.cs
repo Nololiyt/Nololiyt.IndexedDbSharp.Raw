@@ -10,54 +10,60 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
         {
         }
 
-        public ValueTask AdvanceAsync(int count)
+        public async ValueTask AdvanceAsync(int count)
         {
-            throw new NotImplementedException();
+            await this.WrappedObject.InvokeVoidAsync("advance", count);
         }
 
-        public ValueTask ContinueAsync()
+        public async ValueTask ContinueAsync()
         {
-            throw new NotImplementedException();
+            await this.WrappedObject.InvokeVoidAsync("continue");
         }
 
-        public ValueTask ContinueAsync<TKey>(TKey key)
+        public async ValueTask ContinueAsync<TKey>(TKey key)
         {
-            throw new NotImplementedException();
+            await this.WrappedObject.InvokeVoidAsync("continue", key);
         }
 
-        public ValueTask ContinuePrimaryKeyAsync<TKey, TPrimaryKey>(TKey key, TPrimaryKey primaryKey)
+        public async ValueTask ContinuePrimaryKeyAsync<TKey, TPrimaryKey>(TKey key, TPrimaryKey primaryKey)
         {
-            throw new NotImplementedException();
+            await this.WrappedObject.InvokeVoidAsync("continuePrimaryKey", key, primaryKey);
         }
 
-        public ValueTask<IWrappedIdbRequestOfUndefined> DeleteAsync()
+        public async ValueTask<IWrappedIdbRequestOfUndefined> DeleteAsync()
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>("delete");
+            return new WrappedIdbRequestOfUndefined(result);
         }
 
-        public ValueTask<IdbCursorDirection> GetDirectionAsync()
+        public async ValueTask<IdbCursorDirection> GetDirectionAsync()
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IdbCursorDirection>("direction");
+            return result;
         }
 
-        public ValueTask<TResultKey> GetKeyAsync<TResultKey>()
+        public async ValueTask<TResultKey> GetKeyAsync<TResultKey>()
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<TResultKey>("key");
+            return result;
         }
 
-        public ValueTask<TResultKey> GetPrimaryKeyAsync<TResultKey>()
+        public async ValueTask<TResultKey> GetPrimaryKeyAsync<TResultKey>()
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<TResultKey>("primaryKey");
+            return result;
         }
 
-        public ValueTask<IWrappedIdbRequestOfIdbCursor> GetRequestAsync<TResult>()
+        public async ValueTask<IWrappedIdbRequestOfIdbCursor> GetRequestAsync<TResult>()
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>("request");
+            return new WrappedIdbRequestOfIdbCursor(result);
         }
 
-        public ValueTask<IWrappedIdbCursorSource> GetSourceAsync()
+        public async ValueTask<IWrappedIdbCursorSource> GetSourceAsync()
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>("source");
+            return new WrappedIdbCursorSource(result);
         }
     }
 }

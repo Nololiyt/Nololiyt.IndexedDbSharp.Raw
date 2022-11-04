@@ -1,7 +1,9 @@
-﻿using Microsoft.JSInterop;
+﻿using Microsoft.Extensions.Options;
+using Microsoft.JSInterop;
 using Nololiyt.IndexedDbSharp.Raw.CSharp.Async.EventObjects;
 using Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Wrapping;
 using Nololiyt.IndexedDbSharp.Raw.CSharp.Entities;
+using System.Xml.Linq;
 
 namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
 {
@@ -11,74 +13,94 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
         {
         }
 
-        public ValueTask CloseAsync()
+        public async ValueTask CloseAsync()
         {
-            throw new NotImplementedException();
+            await this.WrappedObject.InvokeVoidAsync("close");
         }
 
-        public ValueTask<IWrappedIdbObjectStore> CreateObjectStoreAsync(string name)
+        public async ValueTask<IWrappedIdbObjectStore> CreateObjectStoreAsync(string name)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "createObjectStore", name);
+            return new WrappedIdbObjectStore(result);
         }
 
-        public ValueTask<IWrappedIdbObjectStore> CreateObjectStoreAsync(string name, IdbObjectStoreParameters options)
+        public async ValueTask<IWrappedIdbObjectStore> CreateObjectStoreAsync(
+            string name, IdbObjectStoreParameters options)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "createObjectStore", name, options);
+            return new WrappedIdbObjectStore(result);
         }
 
-        public ValueTask DeleteObjectStoreAsync(string name)
+        public async ValueTask DeleteObjectStoreAsync(string name)
         {
-            throw new NotImplementedException();
+            await this.WrappedObject.InvokeVoidAsync("delete", name);
         }
 
-        public ValueTask<string> GetNameAsync()
+        public async ValueTask<string> GetNameAsync()
         {
-            throw new NotImplementedException();
+            return await this.WrappedObject.InvokeAsync<string>("name");
         }
 
-        public ValueTask<string[]> GetObjectStoreNamesAsync()
+        public async ValueTask<string[]> GetObjectStoreNamesAsync()
         {
-            throw new NotImplementedException();
+            return await this.WrappedObject.InvokeAsync<string[]>("objectStoreNames");
         }
 
-        public ValueTask<int> GetVersionAsync()
+        public async ValueTask<int> GetVersionAsync()
         {
-            throw new NotImplementedException();
+            return await this.WrappedObject.InvokeAsync<int>("version");
         }
 
-        public ValueTask SetOnAbortAsync(EventObjectOfIdbDatabase? callbackObject)
+        public async ValueTask SetOnAbortAsync(EventObjectOfIdbDatabase? callbackObject)
         {
-            throw new NotImplementedException();
+            await this.WrappedObject.InvokeVoidAsync("setOnAbort", callbackObject);
         }
 
-        public ValueTask SetOnCloseAsync(EventObjectOfIdbDatabase? callbackObject)
+        public async ValueTask SetOnCloseAsync(EventObjectOfIdbDatabase? callbackObject)
         {
-            throw new NotImplementedException();
+            await this.WrappedObject.InvokeVoidAsync("setOnClose", callbackObject);
         }
 
-        public ValueTask SetOnErrorAsync(EventObjectOfIdbDatabase? callbackObject)
+        public async ValueTask SetOnErrorAsync(EventObjectOfIdbDatabase? callbackObject)
         {
-            throw new NotImplementedException();
+            await this.WrappedObject.InvokeVoidAsync("setOnError", callbackObject);
         }
 
-        public ValueTask SetOnVersionChangeAsync(EventObjectOfIdbDatabase? callbackObject)
+        public async ValueTask SetOnVersionChangeAsync(EventObjectOfIdbDatabase? callbackObject)
         {
-            throw new NotImplementedException();
+            await this.WrappedObject.InvokeVoidAsync("setOnVersionChange", callbackObject);
         }
 
-        public ValueTask TransactionAsync(string[] storeNames)
+        public async ValueTask<IWrappedIdbTransaction> TransactionAsync(string[] storeNames)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "transaction", storeNames);
+            return new WrappedIdbTransaction(result);
         }
 
-        public ValueTask TransactionAsync(string[] storeNames, IdbTransactionMode mode)
+        public async ValueTask<IWrappedIdbTransaction> TransactionAsync(
+            string[] storeNames, IdbTransactionMode mode)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "transaction", storeNames, mode);
+            return new WrappedIdbTransaction(result);
+        }
+        public async ValueTask<IWrappedIdbTransaction> TransactionAsync(
+            string[] storeNames, IdbTransactionOptions options)
+        {
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "transactionSkipMode", storeNames, options);
+            return new WrappedIdbTransaction(result);
         }
 
-        public ValueTask<IWrappedIdbTransaction> TransactionAsync(string[] storeNames, IdbTransactionMode mode, IdbTransactionOptions options)
+        public async ValueTask<IWrappedIdbTransaction> TransactionAsync(
+            string[] storeNames, IdbTransactionMode mode, IdbTransactionOptions options)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "transaction", storeNames, mode, options);
+            return new WrappedIdbTransaction(result);
         }
     }
 }

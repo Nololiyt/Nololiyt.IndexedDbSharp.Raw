@@ -1,6 +1,8 @@
 ﻿using Microsoft.JSInterop;
 using Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Wrapping;
 using Nololiyt.IndexedDbSharp.Raw.CSharp.Entities;
+using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
 {
@@ -10,29 +12,35 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
         {
         }
 
-        public ValueTask<int> CmpAsync<T1, T2>(T1 first, T2 second)
+        public async ValueTask<int> CmpAsync<T1, T2>(T1 first, T2 second)
         {
-            throw new NotImplementedException();
+            return await this.WrappedObject.InvokeAsync<int>("cmp", first, second);
         }
 
-        public ValueTask<IWrappedIdbOpenDbRequest> DeleteDatabaseAsync(string name)
+        public async ValueTask<IWrappedIdbOpenDbRequest> DeleteDatabaseAsync(string name)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "deleteDatabase", name);
+            return new WrappedIdbOpenDbRequest(result);
         }
 
-        public ValueTask<IdbDatabaseInfo[]> GetDatabasesAsync()
+        public async ValueTask<IdbDatabaseInfo[]> GetDatabasesAsync()
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IdbDatabaseInfo[]>("databases");
+            return result;
         }
 
-        public ValueTask<IWrappedIdbOpenDbRequest> OpenAsync(string name)
+        public async ValueTask<IWrappedIdbOpenDbRequest> OpenAsync(string name)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>("open", name);
+            return new WrappedIdbOpenDbRequest(result);
         }
 
-        public ValueTask<IWrappedIdbOpenDbRequest> OpenAsync(string name, int version)
+        public async ValueTask<IWrappedIdbOpenDbRequest> OpenAsync(string name, int version)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "open", name, version);
+            return new WrappedIdbOpenDbRequest(result);
         }
     }
 }

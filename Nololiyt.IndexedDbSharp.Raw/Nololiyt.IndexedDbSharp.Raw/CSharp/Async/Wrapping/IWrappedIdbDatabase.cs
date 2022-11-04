@@ -27,8 +27,9 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Wrapping
         ValueTask SetOnCloseAsync(EventObjectOfIdbDatabase? callbackObject);
         ValueTask SetOnErrorAsync(EventObjectOfIdbDatabase? callbackObject);
         ValueTask SetOnVersionChangeAsync(EventObjectOfIdbDatabase? callbackObject);
-        ValueTask TransactionAsync(string[] storeNames);
-        ValueTask TransactionAsync(string[] storeNames, IdbTransactionMode mode);
+        ValueTask<IWrappedIdbTransaction> TransactionAsync(string[] storeNames);
+        ValueTask<IWrappedIdbTransaction> TransactionAsync(string[] storeNames, IdbTransactionMode mode);
+        ValueTask<IWrappedIdbTransaction> TransactionAsync(string[] storeNames, IdbTransactionOptions options);
         ValueTask<IWrappedIdbTransaction> TransactionAsync(
             string[] storeNames, IdbTransactionMode mode, IdbTransactionOptions options);
         ValueTask<int> GetVersionAsync();

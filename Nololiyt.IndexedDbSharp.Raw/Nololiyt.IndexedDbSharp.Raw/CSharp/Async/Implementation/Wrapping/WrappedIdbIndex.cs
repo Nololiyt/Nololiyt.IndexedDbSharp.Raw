@@ -11,54 +11,73 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
         {
         }
 
-        public ValueTask<IWrappedIdbRequestOfValue<long>> CountAsync()
+        public async ValueTask<IWrappedIdbRequestOfValue<long>> CountAsync()
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>("count");
+            return new WrappedIdbRequestOfValue<long>(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfValue<long>> CountAsync<TKey>(TKey query)
+        public async ValueTask<IWrappedIdbRequestOfValue<long>> CountAsync<TKey>(TKey query)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>("count", query);
+            return new WrappedIdbRequestOfValue<long>(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfValue<long>> CountAsync(IdbKeyRangeInfo query)
+        public async ValueTask<IWrappedIdbRequestOfValue<long>> CountAsync(IdbKeyRangeInfo query)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>("count", query);
+            return new WrappedIdbRequestOfValue<long>(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfValue<TResultElement[]>> GetAllAsync<TResultElement>()
+        public async ValueTask<IWrappedIdbRequestOfValue<TResultElement[]>>
+            GetAllAsync<TResultElement>()
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>("getAll");
+            return new WrappedIdbRequestOfValue<TResultElement[]>(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfValue<TResultElement[]>> GetAllAsync<TKey, TResultElement>(TKey? query)
+        public async ValueTask<IWrappedIdbRequestOfValue<TResultElement[]>> 
+            GetAllAsync<TKey, TResultElement>(TKey? query)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>("getAll", query);
+            return new WrappedIdbRequestOfValue<TResultElement[]>(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfValue<TResultElement[]>> GetAllAsync<TResultElement>(IdbKeyRangeInfo? query)
+        public async ValueTask<IWrappedIdbRequestOfValue<TResultElement[]>> GetAllAsync<TResultElement>(
+            IdbKeyRangeInfo? query)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>("getAll", query);
+            return new WrappedIdbRequestOfValue<TResultElement[]>(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfValue<TResultElement[]>> GetAllAsync<TResultElement>(int count)
+        public async ValueTask<IWrappedIdbRequestOfValue<TResultElement[]>> GetAllAsync<TResultElement>(
+            int count)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "getAllSkipQuery", count);
+            return new WrappedIdbRequestOfValue<TResultElement[]>(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfValue<TResultElement[]>> GetAllAsync<TKey, TResultElement>(TKey? query, int count)
+        public async ValueTask<IWrappedIdbRequestOfValue<TResultElement[]>>
+            GetAllAsync<TKey, TResultElement>(TKey? query, int count)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "getAll", query, count);
+            return new WrappedIdbRequestOfValue<TResultElement[]>(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfValue<TResultElement[]>> GetAllAsync<TResultElement>(IdbKeyRangeInfo? query, int count)
+        public async ValueTask<IWrappedIdbRequestOfValue<TResultElement[]>>
+            GetAllAsync<TResultElement>(IdbKeyRangeInfo? query, int count)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "getAll", query, count);
+            return new WrappedIdbRequestOfValue<TResultElement[]>(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfValue<TResultKeyElement[]>> GetAllKeysAsync<TResultKeyElement>()
+        public async ValueTask<IWrappedIdbRequestOfValue<TResultKeyElement[]>> GetAllKeysAsync<TResultKeyElement>()
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>("getAllKeys");
+            return new WrappedIdbRequestOfValue<TResultKeyElement[]>(result);
         }
 
         public ValueTask<IWrappedIdbRequestOfValue<TResultKeyElement[]>> GetAllKeysAsync<TKey, TResultKeyElement>(TKey? query)

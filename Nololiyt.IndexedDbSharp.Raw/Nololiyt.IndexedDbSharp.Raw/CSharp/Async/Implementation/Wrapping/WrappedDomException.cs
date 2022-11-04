@@ -9,24 +9,24 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
         {
         }
 
-        public ValueTask<int> GetCodeAsync()
+        public async ValueTask<int> GetCodeAsync()
         {
-            throw new NotImplementedException();
+            return await this.WrappedObject.InvokeAsync<int>("code");
         }
 
-        public ValueTask<string> GetMessageAsync()
+        public async ValueTask<string> GetMessageAsync()
         {
-            throw new NotImplementedException();
+            return await this.WrappedObject.InvokeAsync<string>("message");
         }
 
-        public ValueTask<string> GetNameAsync()
+        public async ValueTask<string> GetNameAsync()
         {
-            throw new NotImplementedException();
+            return await this.WrappedObject.InvokeAsync<string>("name");
         }
 
-        public ValueTask<string?> GetStackAsync()
+        public async ValueTask<string?> GetStackAsync()
         {
-            throw new NotImplementedException();
+            return await this.WrappedObject.InvokeAsync<string?>("stack");
         }
     }
 }

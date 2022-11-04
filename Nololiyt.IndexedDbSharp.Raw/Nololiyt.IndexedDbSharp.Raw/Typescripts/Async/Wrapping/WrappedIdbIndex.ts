@@ -46,6 +46,10 @@ export class WrappedIdbIndex
             result = this.wrapped.getAll(query, count);
         return new WrappedIdbRequestOfAnyArray(result);
     }
+    getAllSkipQuery(count?: number | undefined): WrappedIdbRequestOfAnyArray
+    {
+        return this.getAll(undefined, count);
+    }
 
     getAllKeys(
         query?: IDBValidKey | IdbKeyRangeInfo | null | undefined,
