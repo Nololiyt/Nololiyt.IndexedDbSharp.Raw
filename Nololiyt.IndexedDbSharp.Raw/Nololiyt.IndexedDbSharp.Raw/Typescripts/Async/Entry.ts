@@ -1,9 +1,10 @@
-﻿import { WrappedIdbFactory } from "./Wrapping/WrappedIdbFactory.js"
+﻿import { KnownError } from "./Entities/KnownError.js";
+import { WrappedIdbFactory } from "./Wrapping/WrappedIdbFactory.js"
 
-export function newWrappedIdbFactory(): WrappedIdbFactory | null
+export function newWrappedIdbFactory(): WrappedIdbFactory
 {
     if (window.indexedDB)
         return new WrappedIdbFactory(window.indexedDB);
     else
-        return null;
+        throw new KnownError("The browser doesn't support IndexedDB.");
 }

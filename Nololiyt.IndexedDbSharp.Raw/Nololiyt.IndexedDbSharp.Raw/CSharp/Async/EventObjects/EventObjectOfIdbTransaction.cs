@@ -11,9 +11,10 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.EventObjects
 {
     public sealed class EventObjectOfIdbTransaction : IDisposable
     {
-        private readonly JsEventHandler<IWrappedIdbTransaction> handler;
+        private readonly JsEventHandler<IWrappedIdbTransaction, EventObjectOfIdbTransaction> handler;
 
-        public EventObjectOfIdbTransaction(JsEventHandler<IWrappedIdbTransaction> handler)
+        public EventObjectOfIdbTransaction(
+            JsEventHandler<IWrappedIdbTransaction, EventObjectOfIdbTransaction> handler)
         {
             this.handler = handler;
             this.Object = DotNetObjectReference.Create(this);
@@ -26,7 +27,7 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.EventObjects
         {
             await using var s = new WrappedIdbTransaction(self);
             await using var e = new WrappedEvent(ev);
-            await handler(s, e);
+            await handler(s, e, this);
         }
 
         public void Dispose()

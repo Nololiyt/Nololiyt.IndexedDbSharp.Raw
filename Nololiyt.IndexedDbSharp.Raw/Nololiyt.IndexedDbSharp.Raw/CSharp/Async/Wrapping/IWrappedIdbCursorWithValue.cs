@@ -21,7 +21,7 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Wrapping
         ValueTask<TResultKey> GetPrimaryKeyAsync<TResultKey>();
 
 #warning The return type in Typescript is 'WrappedIdbRequest<any>'
-        ValueTask<IWrappedIdbRequestOfIdbCursorWithValue> GetRequestAsync<TResult>();
+        ValueTask<IWrappedIdbRequestOfIdbCursorWithValueOrNull> GetRequestAsync<TResult>();
         ValueTask<IWrappedIdbCursorSource> GetSourceAsync();
         ValueTask<IWrappedIdbRequestOfValue<TResultKey>> UpdateAsync<TValue, TResultKey>(TValue value);
         ValueTask<TValue> GetValueAsync<TValue>();

@@ -126,15 +126,15 @@ export class WrappedIdbRequestOfIdbCursorOrNull
 }
 
 export class WrappedIdbRequestOfIdbCursorWithValueOrNull
-    extends WrappedIdbRequest<IDBCursorWithValue | null, WrappedIdbCursorWithValue | null>
+    extends WrappedIdbRequest<IDBCursorWithValue | null, ObjectOrNull<WrappedIdbCursorWithValue>>
 {
     constructor(wrapped: IDBRequest<IDBCursorWithValue | null>)
     {
         super(wrapped, (result) =>
         {
             if (result === null)
-                return null;
-            return new WrappedIdbCursorWithValue(result);
+                return new ObjectOrNull<WrappedIdbCursorWithValue>(null);
+            return new ObjectOrNull(new WrappedIdbCursorWithValue(result));
         });
     }
 }

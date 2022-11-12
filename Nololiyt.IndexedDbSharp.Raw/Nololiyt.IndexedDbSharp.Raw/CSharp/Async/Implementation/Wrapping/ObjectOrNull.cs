@@ -10,7 +10,7 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
     internal static class ObjectOrNull
     {
         public static async ValueTask<T?> InvokeObjectOrNullAsync<T>(
-            this IJSObjectReference jsObject, string identifier, object?[]? args) where T : class
+            this IJSObjectReference jsObject, string identifier, params object?[]? args) where T : class
         {
             await using var valueOrNull =
                 await jsObject.InvokeAsync<IJSObjectReference>(identifier, args);

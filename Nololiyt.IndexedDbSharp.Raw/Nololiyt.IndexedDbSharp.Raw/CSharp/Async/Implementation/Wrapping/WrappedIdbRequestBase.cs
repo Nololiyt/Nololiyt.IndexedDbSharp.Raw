@@ -5,9 +5,9 @@ using Nololiyt.IndexedDbSharp.Raw.CSharp.Entities;
 
 namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
 {
-    internal sealed class WrappedIdbRequestOfUndefined : WrappedWrappedJsObjectBase, IWrappedIdbRequestOfUndefined
+    internal abstract class WrappedIdbRequestBase<T, TCallback> : WrappedWrappedJsObjectBase, IWrappedIdbRequestBase<T>
     {
-        public WrappedIdbRequestOfUndefined(IJSObjectReference wrappedObject) : base(wrappedObject)
+        public WrappedIdbRequestBase(IJSObjectReference wrappedObject) : base(wrappedObject)
         {
         }
 
@@ -16,10 +16,7 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
             return await this.WrappedObject.InvokeAsync<IdbRequestReadyState>("readyState");
         }
 
-        public async ValueTask GetResultAsync()
-        {
-            await this.WrappedObject.InvokeVoidAsync("result");
-        }
+        public abstract ValueTask<T> GetResultAsync();
 
         public async ValueTask<IWrappedIdbRequestSource> GetSourceAsync()
         {
@@ -36,11 +33,11 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
             return new WrappedIdbTransaction(result);
         }
 
-        public async ValueTask SetOnErrorAsync(EventObjectOfIdbRequestOfUndefined? callbackObject)
+        public async ValueTask SetOnErrorAsync(TCallback? callbackObject)
         {
             await this.WrappedObject.InvokeVoidAsync("setOnError", callbackObject);
         }
-        public async ValueTask SetOnSuccessAsync(EventObjectOfIdbRequestOfUndefined? callbackObject)
+        public async ValueTask SetOnSuccessAsync(TCallback? callbackObject)
         {
             await this.WrappedObject.InvokeVoidAsync("setOnSuccess", callbackObject);
         }

@@ -23,7 +23,7 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Wrapping
         ValueTask<TResultKey> GetPrimaryKeyAsync<TResultKey>();
 
 #warning The return type in Typescript is 'WrappedIdbRequest<any>'
-        ValueTask<IWrappedIdbRequestOfIdbCursor> GetRequestAsync<TResult>();
+        ValueTask<IWrappedIdbRequestOfIdbCursorOrNull> GetRequestAsync<TResult>();
         ValueTask<IWrappedIdbCursorSource> GetSourceAsync();
     }
 }

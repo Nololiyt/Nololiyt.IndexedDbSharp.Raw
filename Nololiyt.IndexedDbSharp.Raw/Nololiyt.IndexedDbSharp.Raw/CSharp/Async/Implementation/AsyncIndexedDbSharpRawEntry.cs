@@ -1,5 +1,7 @@
 ﻿using Microsoft.JSInterop;
+using Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping;
 using Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Wrapping;
+using Nololiyt.IndexedDbSharp.Raw.CSharp.Entities;
 
 namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation
 {
@@ -12,13 +14,22 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation
             this.jsRuntime = jsRuntime;
         }
 
-        public async ValueTask<IWrappedIdbFactory?> NewWrappedIdbFactoryAsync()
+        public async ValueTask<IWrappedIdbFactory> NewWrappedIdbFactoryAsync()
         {
             await using var module = await jsRuntime.InvokeAsync<IJSObjectReference>(
                     "import",
                     "./_content/Nololiyt.IndexedDbSharp.Raw/generated/scripts/Entry.js");
-            var result = await module.InvokeAsync<IJSObjectReference?>("newWrappedIdbFactory");
-            throw new NotImplementedException();
+            try
+            {
+                var result = await module.InvokeAsync<IJSObjectReference>("newWrappedIdbFactory");
+                return new WrappedIdbFactory(result);
+            }
+            catch(JSException ex)
+            {
+                if(IdbException.TryFromJsException(ex, out var idbEx))
+                    throw idbEx;
+                throw;
+            }
         }
     }
 }

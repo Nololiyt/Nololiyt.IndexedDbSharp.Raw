@@ -63,33 +63,33 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Wrapping
             IdbKeyRangeInfo? query, int count);
 
         ValueTask<IWrappedIdbRequestOfValue<TResultKey?>> GetKeyAsync<TKey, TResultKey>(TKey query);
-        ValueTask<IWrappedIdbRequestOfValue<TKey?>> GetKeyAsync<TKey>(IdbKeyRangeInfo query);
+        ValueTask<IWrappedIdbRequestOfValue<TResultKey?>> GetKeyAsync<TResultKey>(IdbKeyRangeInfo query);
 
         ValueTask<IWrappedIdbIndex> IndexAsync(string name);
         ValueTask<string[]> GetIndexNamesAsync();
         ValueTask<IdbKeyPath> GetKeyPathAsync();
 
-        ValueTask<IWrappedIdbRequestOfIdbCursorWithValue> OpenCursorAsync();
-        ValueTask<IWrappedIdbRequestOfIdbCursorWithValue> OpenCursorAsync<TKey>(
+        ValueTask<IWrappedIdbRequestOfIdbCursorWithValueOrNull> OpenCursorAsync();
+        ValueTask<IWrappedIdbRequestOfIdbCursorWithValueOrNull> OpenCursorAsync<TKey>(
             TKey? query);
-        ValueTask<IWrappedIdbRequestOfIdbCursorWithValue> OpenCursorAsync(
+        ValueTask<IWrappedIdbRequestOfIdbCursorWithValueOrNull> OpenCursorAsync(
             IdbKeyRangeInfo? query);
-        ValueTask<IWrappedIdbRequestOfIdbCursorWithValue> OpenCursorAsync(
+        ValueTask<IWrappedIdbRequestOfIdbCursorWithValueOrNull> OpenCursorAsync(
             IdbCursorDirection direction);
-        ValueTask<IWrappedIdbRequestOfIdbCursorWithValue> OpenCursorAsync<TKey>(
+        ValueTask<IWrappedIdbRequestOfIdbCursorWithValueOrNull> OpenCursorAsync<TKey>(
             TKey? query, IdbCursorDirection direction);
-        ValueTask<IWrappedIdbRequestOfIdbCursorWithValue> OpenCursorAsync(
+        ValueTask<IWrappedIdbRequestOfIdbCursorWithValueOrNull> OpenCursorAsync(
             IdbKeyRangeInfo? query, IdbCursorDirection direction);
 
-        ValueTask<IWrappedIdbRequestOfIdbCursor> OpenKeyCursorAsync();
-        ValueTask<IWrappedIdbRequestOfIdbCursor> OpenKeyCursorAsync<TKey>(TKey? query);
-        ValueTask<IWrappedIdbRequestOfIdbCursor> OpenKeyCursorAsync(
+        ValueTask<IWrappedIdbRequestOfIdbCursorOrNull> OpenKeyCursorAsync();
+        ValueTask<IWrappedIdbRequestOfIdbCursorOrNull> OpenKeyCursorAsync<TKey>(TKey? query);
+        ValueTask<IWrappedIdbRequestOfIdbCursorOrNull> OpenKeyCursorAsync(
             IdbKeyRangeInfo? query);
-        ValueTask<IWrappedIdbRequestOfIdbCursor> OpenKeyCursorAsync(
+        ValueTask<IWrappedIdbRequestOfIdbCursorOrNull> OpenKeyCursorAsync(
             IdbCursorDirection direction);
-        ValueTask<IWrappedIdbRequestOfIdbCursor> OpenKeyCursorAsync<TKey>(
+        ValueTask<IWrappedIdbRequestOfIdbCursorOrNull> OpenKeyCursorAsync<TKey>(
             TKey? query, IdbCursorDirection direction);
-        ValueTask<IWrappedIdbRequestOfIdbCursor> OpenKeyCursorAsync(
+        ValueTask<IWrappedIdbRequestOfIdbCursorOrNull> OpenKeyCursorAsync(
             IdbKeyRangeInfo? query, IdbCursorDirection direction);
 
         ValueTask<IWrappedIdbRequestOfValue<TResultKey>> PutAsync<TValue, TResultKey>(TValue value);

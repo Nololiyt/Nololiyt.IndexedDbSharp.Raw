@@ -80,134 +80,190 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
             return new WrappedIdbRequestOfValue<TResultKeyElement[]>(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfValue<TResultKeyElement[]>> GetAllKeysAsync<TKey, TResultKeyElement>(TKey? query)
+        public async ValueTask<IWrappedIdbRequestOfValue<TResultKeyElement[]>>
+            GetAllKeysAsync<TKey, TResultKeyElement>(TKey? query)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "getAllKeys", query);
+            return new WrappedIdbRequestOfValue<TResultKeyElement[]>(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfValue<TResultKeyElement[]>> GetAllKeysAsync<TResultKeyElement>(IdbKeyRangeInfo? query)
+        public async ValueTask<IWrappedIdbRequestOfValue<TResultKeyElement[]>> 
+            GetAllKeysAsync<TResultKeyElement>(IdbKeyRangeInfo? query)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "getAllKeys", query);
+            return new WrappedIdbRequestOfValue<TResultKeyElement[]>(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfValue<TResultKeyElement[]>> GetAllKeysAsync<TResultKeyElement>(int count)
+        public async ValueTask<IWrappedIdbRequestOfValue<TResultKeyElement[]>>
+            GetAllKeysAsync<TResultKeyElement>(int count)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "getAllKeysSkipQuery", count);
+            return new WrappedIdbRequestOfValue<TResultKeyElement[]>(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfValue<TResultKeyElement[]>> GetAllKeysAsync<TKey, TResultKeyElement>(TKey? query, int count)
+        public async ValueTask<IWrappedIdbRequestOfValue<TResultKeyElement[]>>
+            GetAllKeysAsync<TKey, TResultKeyElement>(TKey? query, int count)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "getAllKeys", query, count);
+            return new WrappedIdbRequestOfValue<TResultKeyElement[]>(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfValue<TResultKeyElement[]>> GetAllKeysAsync<TResultKeyElement>(IdbKeyRangeInfo? query, int count)
+        public async ValueTask<IWrappedIdbRequestOfValue<TResultKeyElement[]>> 
+            GetAllKeysAsync<TResultKeyElement>(IdbKeyRangeInfo? query, int count)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "getAllKeys", query, count);
+            return new WrappedIdbRequestOfValue<TResultKeyElement[]>(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfValue<TValue>> GetAsync<TKey, TValue>(TKey query)
+        public async ValueTask<IWrappedIdbRequestOfValue<TValue>> GetAsync<TKey, TValue>(TKey query)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "get", query);
+            return new WrappedIdbRequestOfValue<TValue>(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfValue<TValue>> GetAsync<TValue>(IdbKeyRangeInfo query)
+        public async ValueTask<IWrappedIdbRequestOfValue<TValue>> GetAsync<TValue>(IdbKeyRangeInfo query)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "get", query);
+            return new WrappedIdbRequestOfValue<TValue>(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfValue<TResultKey?>> GetKeyAsync<TKey, TResultKey>(TKey query)
+        public async ValueTask<IWrappedIdbRequestOfValue<TResultKey?>>
+            GetKeyAsync<TKey, TResultKey>(TKey query)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "getKey", query);
+            return new WrappedIdbRequestOfValue<TResultKey?>(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfValue<TResultKey?>> GetKeyAsync<TResultKey>(IdbKeyRangeInfo query)
+        public async ValueTask<IWrappedIdbRequestOfValue<TResultKey?>>
+            GetKeyAsync<TResultKey>(IdbKeyRangeInfo query)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "getKey", query);
+            return new WrappedIdbRequestOfValue<TResultKey?>(result);
         }
 
-        public ValueTask<IdbKeyPath> GetKeyPathAsync()
+        public async ValueTask<IdbKeyPath> GetKeyPathAsync()
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IdbKeyPath>("keyPath");
+            return result;
         }
 
-        public ValueTask<bool> GetMultiEntryAsync()
+        public async ValueTask<bool> GetMultiEntryAsync()
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<bool>("multiEntry");
+            return result;
         }
 
-        public ValueTask<string> GetNameAsync()
+        public async ValueTask<string> GetNameAsync()
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<string>("name");
+            return result;
         }
 
-        public ValueTask<IWrappedIdbObjectStore> GetObjectStoreAsync()
+        public async ValueTask<IWrappedIdbObjectStore> GetObjectStoreAsync()
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>("objectStore");
+            return new WrappedIdbObjectStore(result);
         }
 
-        public ValueTask<bool> GetUniqueAsync()
+        public async ValueTask<bool> GetUniqueAsync()
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<bool>("unique");
+            return result;
         }
 
-        public ValueTask<IWrappedIdbRequestOfIdbCursorWithValue> OpenCursorAsync()
+        public async ValueTask<IWrappedIdbRequestOfIdbCursorWithValueOrNull> OpenCursorAsync()
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>("openCursor");
+            return new WrappedIdbRequestOfIdbCursorWithValueOrNull(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfIdbCursorWithValue> OpenCursorAsync<TKey>(TKey? query)
+        public async ValueTask<IWrappedIdbRequestOfIdbCursorWithValueOrNull>
+            OpenCursorAsync<TKey>(TKey? query)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>("openCursor", query);
+            return new WrappedIdbRequestOfIdbCursorWithValueOrNull(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfIdbCursorWithValue> OpenCursorAsync(IdbKeyRangeInfo? query)
+        public async ValueTask<IWrappedIdbRequestOfIdbCursorWithValueOrNull>
+            OpenCursorAsync(IdbKeyRangeInfo? query)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>("openCursor", query);
+            return new WrappedIdbRequestOfIdbCursorWithValueOrNull(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfIdbCursorWithValue> OpenCursorAsync(IdbCursorDirection direction)
+        public async ValueTask<IWrappedIdbRequestOfIdbCursorWithValueOrNull>
+            OpenCursorAsync(IdbCursorDirection direction)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "openCursorSkipQuery", direction);
+            return new WrappedIdbRequestOfIdbCursorWithValueOrNull(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfIdbCursorWithValue> OpenCursorAsync<TKey>(TKey? query, IdbCursorDirection direction)
+        public async ValueTask<IWrappedIdbRequestOfIdbCursorWithValueOrNull> 
+            OpenCursorAsync<TKey>(TKey? query, IdbCursorDirection direction)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "openCursor", query, direction);
+            return new WrappedIdbRequestOfIdbCursorWithValueOrNull(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfIdbCursorWithValue> OpenCursorAsync(IdbKeyRangeInfo? query, IdbCursorDirection direction)
+        public async ValueTask<IWrappedIdbRequestOfIdbCursorWithValueOrNull> OpenCursorAsync(
+            IdbKeyRangeInfo? query, IdbCursorDirection direction)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "openCursor", query, direction);
+            return new WrappedIdbRequestOfIdbCursorWithValueOrNull(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfIdbCursor> OpenKeyCursorAsync()
+        public async ValueTask<IWrappedIdbRequestOfIdbCursorOrNull> OpenKeyCursorAsync()
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "openKeyCursor");
+            return new WrappedIdbRequestOfIdbCursorOrNull(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfIdbCursor> OpenKeyCursorAsync<TKey>(TKey? query)
+        public async ValueTask<IWrappedIdbRequestOfIdbCursorOrNull> OpenKeyCursorAsync<TKey>(TKey? query)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "openKeyCursor", query);
+            return new WrappedIdbRequestOfIdbCursorOrNull(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfIdbCursor> OpenKeyCursorAsync(IdbKeyRangeInfo? query)
+        public async ValueTask<IWrappedIdbRequestOfIdbCursorOrNull> OpenKeyCursorAsync(IdbKeyRangeInfo? query)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "openKeyCursor", query);
+            return new WrappedIdbRequestOfIdbCursorOrNull(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfIdbCursor> OpenKeyCursorAsync(IdbCursorDirection direction)
+        public async ValueTask<IWrappedIdbRequestOfIdbCursorOrNull> OpenKeyCursorAsync(IdbCursorDirection direction)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "openKeyCursorSkipQuery", direction);
+            return new WrappedIdbRequestOfIdbCursorOrNull(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfIdbCursor> OpenKeyCursorAsync<TKey>(TKey? query, IdbCursorDirection direction)
+        public async ValueTask<IWrappedIdbRequestOfIdbCursorOrNull> OpenKeyCursorAsync<TKey>(TKey? query, IdbCursorDirection direction)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "openKeyCursor", query, direction);
+            return new WrappedIdbRequestOfIdbCursorOrNull(result);
         }
 
-        public ValueTask<IWrappedIdbRequestOfIdbCursor> OpenKeyCursorAsync(IdbKeyRangeInfo? query, IdbCursorDirection direction)
+        public async ValueTask<IWrappedIdbRequestOfIdbCursorOrNull> OpenKeyCursorAsync(IdbKeyRangeInfo? query, IdbCursorDirection direction)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>(
+                "openKeyCursor", query, direction);
+            return new WrappedIdbRequestOfIdbCursorOrNull(result);
         }
     }
 }

@@ -4,6 +4,6 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async
 {
     public interface IAsyncIndexedDbSharpRawEntry
     {
-        ValueTask<IWrappedIdbFactory?> NewWrappedIdbFactoryAsync();
+        ValueTask<IWrappedIdbFactory> NewWrappedIdbFactoryAsync();
     }
 }

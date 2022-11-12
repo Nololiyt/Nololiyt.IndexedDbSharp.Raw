@@ -11,29 +11,39 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
         {
         }
 
-        public ValueTask<IWrappedIdbCursor?> GetSourceAsCursorAsync()
+        public async ValueTask<IWrappedIdbCursor?> GetSourceAsCursorAsync()
         {
-            throw new NotImplementedException();
+            var type = await this.GetSourceTypeAsync();
+            if (type != IdbRequestSourceType.Cursor)
+                return null;
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>("getValue");
+            return new WrappedIdbCursor(result);
         }
 
-        public ValueTask<IWrappedIdbIndex?> GetSourceAsIndexAsync()
+        public async ValueTask<IWrappedIdbIndex?> GetSourceAsIndexAsync()
         {
-            throw new NotImplementedException();
+            var type = await this.GetSourceTypeAsync();
+            if (type != IdbRequestSourceType.Index)
+                return null;
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>("getValue");
+            return new WrappedIdbIndex(result);
         }
 
-        public ValueTask<IWrappedIdbObjectStore?> GetSourceAsObjectStoreAsync()
+        public async ValueTask<IWrappedIdbObjectStore?> GetSourceAsObjectStoreAsync()
         {
-            throw new NotImplementedException();
+            var type = await this.GetSourceTypeAsync();
+            if (type != IdbRequestSourceType.ObjectStore)
+                return null;
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>("getValue");
+            return new WrappedIdbObjectStore(result);
         }
 
-        public ValueTask<IdbRequestSourceType> GetSourceTypeAsync()
+        private IdbRequestSourceType? type = null;
+        public async ValueTask<IdbRequestSourceType> GetSourceTypeAsync()
         {
-            throw new NotImplementedException();
-        }
-
-        public ValueTask<IJSObjectReference> GetWrappedWrappedObjectAsync()
-        {
-            throw new NotImplementedException();
+            if (!type.HasValue)
+                type = await this.WrappedObject.InvokeAsync<IdbRequestSourceType>("getType");
+            return type.Value;
         }
     }
 }

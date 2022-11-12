@@ -7,5 +7,8 @@ using System.Threading.Tasks;
 
 namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.EventObjects
 {
-    public delegate ValueTask JsEventHandler<TSelf>(TSelf self, IWrappedEvent ev);
+    public delegate ValueTask JsEventHandler<TThis, TEventObject>(
+        TThis @this,
+        IWrappedEvent ev,
+        TEventObject eventObject);
 }

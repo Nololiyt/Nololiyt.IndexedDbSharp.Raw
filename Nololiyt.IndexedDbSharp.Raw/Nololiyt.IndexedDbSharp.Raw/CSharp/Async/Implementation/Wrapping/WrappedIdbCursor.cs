@@ -54,10 +54,10 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
             return result;
         }
 
-        public async ValueTask<IWrappedIdbRequestOfIdbCursor> GetRequestAsync<TResult>()
+        public async ValueTask<IWrappedIdbRequestOfIdbCursorOrNull> GetRequestAsync<TResult>()
         {
             var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>("request");
-            return new WrappedIdbRequestOfIdbCursor(result);
+            return new WrappedIdbRequestOfIdbCursorOrNull(result);
         }
 
         public async ValueTask<IWrappedIdbCursorSource> GetSourceAsync()

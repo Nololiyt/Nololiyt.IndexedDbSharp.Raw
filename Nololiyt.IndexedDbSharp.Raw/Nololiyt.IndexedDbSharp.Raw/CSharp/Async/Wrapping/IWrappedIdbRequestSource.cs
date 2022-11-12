@@ -2,7 +2,7 @@
 
 namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Wrapping
 {
-    public interface IWrappedIdbRequestSource : IWrappedWrappedJsObject
+    public interface IWrappedIdbRequestSource : IWrappedJsObject
     {
         ValueTask<IdbRequestSourceType> GetSourceTypeAsync();
         ValueTask<IWrappedIdbIndex?> GetSourceAsIndexAsync();

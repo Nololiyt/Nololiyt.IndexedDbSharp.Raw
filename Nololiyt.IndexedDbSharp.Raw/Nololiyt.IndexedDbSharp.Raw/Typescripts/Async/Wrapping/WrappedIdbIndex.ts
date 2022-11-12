@@ -62,6 +62,12 @@ export class WrappedIdbIndex
             result = this.wrapped.getAllKeys(query, count);
         return new WrappedIdbRequestOfIdbValidKeyArray(result);
     }
+    getAllKeysSkipQuery(count?: number | undefined): WrappedIdbRequestOfIdbValidKeyArray
+    {
+        let result: IDBRequest<IDBValidKey[]>;
+        result = this.wrapped.getAllKeys(undefined, count);
+        return new WrappedIdbRequestOfIdbValidKeyArray(result);
+    }
 
     getKey(query: IDBValidKey | IdbKeyRangeInfo): WrappedIdbRequestOfIdbValidKeyOrUndefined
     {
@@ -105,6 +111,13 @@ export class WrappedIdbIndex
             result = this.wrapped.openCursor(query, direction);
         return new WrappedIdbRequestOfIdbCursorWithValueOrNull(result);
     }
+    openCursorSkipQuery(
+        direction?: IDBCursorDirection | undefined): WrappedIdbRequestOfIdbCursorWithValueOrNull
+    {
+        let result: IDBRequest<IDBCursorWithValue | null>;
+        result = this.wrapped.openCursor(undefined, direction);
+        return new WrappedIdbRequestOfIdbCursorWithValueOrNull(result);
+    }
 
     openKeyCursor(
         query?: IDBValidKey | IdbKeyRangeInfo | null | undefined,
@@ -115,6 +128,14 @@ export class WrappedIdbIndex
             result = this.wrapped.openKeyCursor(convertToIdbKeyRange(query), direction);
         else
             result = this.wrapped.openKeyCursor(query, direction);
+        return new WrappedIdbRequestOfIdbCursorOrNull(result);
+    }
+
+    openKeyCursorSkipQuery(
+        direction?: IDBCursorDirection | undefined): WrappedIdbRequestOfIdbCursorOrNull
+    {
+        let result: IDBRequest<IDBCursor | null>;
+        result = this.wrapped.openKeyCursor(undefined, direction);
         return new WrappedIdbRequestOfIdbCursorOrNull(result);
     }
 

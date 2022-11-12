@@ -13,7 +13,7 @@ using System.Transactions;
 
 namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Wrapping
 {
-    public interface IWrappedIdbRequestOfIdbCursor : IWrappedIdbRequestBase<IWrappedIdbCursor?>
+    public interface IWrappedIdbRequestOfIdbCursorOrNull : IWrappedIdbRequestBase<IWrappedIdbCursor?>
     {
         ValueTask SetOnErrorAsync(EventObjectOfIdbRequestOfIdbCursor? callbackObject);
         ValueTask SetOnSuccessAsync(EventObjectOfIdbRequestOfIdbCursor? callbackObject);

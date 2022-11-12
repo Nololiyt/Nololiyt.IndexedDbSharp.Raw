@@ -5,40 +5,18 @@ using Nololiyt.IndexedDbSharp.Raw.CSharp.Entities;
 
 namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
 {
-    internal sealed class WrappedIdbRequestOfIdbDatabase : WrappedWrappedJsObjectBase, IWrappedIdbRequestOfIdbDatabase
+    internal sealed class WrappedIdbRequestOfIdbDatabase :
+        WrappedIdbRequestBase<IWrappedIdbDatabase, EventObjectOfIdbRequestOfIdbDatabase>,
+        IWrappedIdbRequestOfIdbDatabase
     {
         public WrappedIdbRequestOfIdbDatabase(IJSObjectReference wrappedObject) : base(wrappedObject)
         {
         }
 
-        public ValueTask<IdbRequestReadyState> GetReadyStateAsync()
+        public override async ValueTask<IWrappedIdbDatabase> GetResultAsync()
         {
-            throw new NotImplementedException();
-        }
-
-        public ValueTask<IWrappedIdbDatabase> GetResultAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public ValueTask<IWrappedIdbRequestSource> GetSourceAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public ValueTask<IWrappedIdbTransaction?> GetTransactionAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public ValueTask SetOnErrorAsync(EventObjectOfIdbRequestOfIdbDatabase? callbackObject)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ValueTask SetOnSuccessAsync(EventObjectOfIdbRequestOfIdbDatabase? callbackObject)
-        {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>("result");
+            return new WrappedIdbDatabase(result);
         }
     }
 }

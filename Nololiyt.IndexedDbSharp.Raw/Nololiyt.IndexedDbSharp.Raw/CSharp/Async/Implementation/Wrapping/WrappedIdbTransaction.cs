@@ -2,6 +2,7 @@
 using Nololiyt.IndexedDbSharp.Raw.CSharp.Async.EventObjects;
 using Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Wrapping;
 using Nololiyt.IndexedDbSharp.Raw.CSharp.Entities;
+using System.Xml.Linq;
 
 namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
 {
@@ -11,59 +12,67 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
         {
         }
 
-        public ValueTask AbortAsync()
+        public async ValueTask AbortAsync()
         {
-            throw new NotImplementedException();
+            await this.WrappedObject.InvokeVoidAsync("abort");
         }
 
-        public ValueTask CommitAsync()
+        public async ValueTask CommitAsync()
         {
-            throw new NotImplementedException();
+            await this.WrappedObject.InvokeVoidAsync("commit");
         }
 
-        public ValueTask<IWrappedIdbDatabase> GetDbAsync()
+        public async ValueTask<IWrappedIdbDatabase> GetDbAsync()
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>("db");
+            return new WrappedIdbDatabase(result);
         }
 
-        public ValueTask<IdbTransactionDurability> GetDurabilityAsync()
+        public async ValueTask<IdbTransactionDurability> GetDurabilityAsync()
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IdbTransactionDurability>("durability");
+            return result;
         }
 
-        public ValueTask<IWrappedDomException?> GetErrorAsync()
+        public async ValueTask<IWrappedDomException?> GetErrorAsync()
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeObjectOrNullAsync<IJSObjectReference>("error");
+            if (result is null)
+                return null;
+            return new WrappedDomException(result);
         }
 
-        public ValueTask<IdbTransactionMode> GetModeAsync()
+        public async ValueTask<IdbTransactionMode> GetModeAsync()
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IdbTransactionMode>("mode");
+            return result;
         }
 
-        public ValueTask<string[]> GetObjectStoreNamesAsync()
+        public async ValueTask<string[]> GetObjectStoreNamesAsync()
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<string[]>("objectStoreNames");
+            return result;
         }
 
-        public ValueTask<IWrappedIdbObjectStore> ObjectStoreAsync(string name)
+        public async ValueTask<IWrappedIdbObjectStore> ObjectStoreAsync(string name)
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>("objectStore", name);
+            return new WrappedIdbObjectStore(result);
         }
 
-        public ValueTask SetOnAbortAsync(EventObjectOfIdbTransaction? callbackObject)
+        public async ValueTask SetOnAbortAsync(EventObjectOfIdbTransaction? callbackObject)
         {
-            throw new NotImplementedException();
+            await this.WrappedObject.InvokeVoidAsync("setOnAbort", callbackObject);
         }
 
-        public ValueTask SetOnCompleteAsync(EventObjectOfIdbTransaction? callbackObject)
+        public async ValueTask SetOnCompleteAsync(EventObjectOfIdbTransaction? callbackObject)
         {
-            throw new NotImplementedException();
+            await this.WrappedObject.InvokeVoidAsync("setOnComplete", callbackObject);
         }
 
-        public ValueTask SetOnErrorAsync(EventObjectOfIdbTransaction? callbackObject)
+        public async ValueTask SetOnErrorAsync(EventObjectOfIdbTransaction? callbackObject)
         {
-            throw new NotImplementedException();
+            await this.WrappedObject.InvokeVoidAsync("setOnError", callbackObject);
         }
     }
 }

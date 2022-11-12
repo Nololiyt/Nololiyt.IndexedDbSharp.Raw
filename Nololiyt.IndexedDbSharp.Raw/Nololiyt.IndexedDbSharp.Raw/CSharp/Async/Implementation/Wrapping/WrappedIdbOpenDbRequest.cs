@@ -5,50 +5,28 @@ using Nololiyt.IndexedDbSharp.Raw.CSharp.Entities;
 
 namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.Implementation.Wrapping
 {
-    internal sealed class WrappedIdbOpenDbRequest :  WrappedWrappedJsObjectBase, IWrappedIdbOpenDbRequest
+    internal sealed class WrappedIdbOpenDbRequest : 
+        WrappedIdbRequestBase<IWrappedIdbDatabase, EventObjectOfIdbRequestOfIdbDatabase>, 
+        IWrappedIdbOpenDbRequest
     {
         public WrappedIdbOpenDbRequest(IJSObjectReference wrappedObject) : base(wrappedObject)
         {
         }
 
-        public ValueTask<IdbRequestReadyState> GetReadyStateAsync()
+        public override async ValueTask<IWrappedIdbDatabase> GetResultAsync()
         {
-            throw new NotImplementedException();
+            var result = await this.WrappedObject.InvokeAsync<IJSObjectReference>("result");
+            return new WrappedIdbDatabase(result);
         }
 
-        public ValueTask<IWrappedIdbDatabase> GetResultAsync()
+        public async ValueTask SetOnBlockedAsync(EventObjectOfIdbRequestOfIdbDatabase? callbackObject)
         {
-            throw new NotImplementedException();
+            await this.WrappedObject.InvokeVoidAsync("setOnBlocked", callbackObject);
         }
 
-        public ValueTask<IWrappedIdbRequestSource> GetSourceAsync()
+        public async ValueTask SetOnUpgradeNeededAsync(EventObjectOfIdbRequestOfIdbDatabase? callbackObject)
         {
-            throw new NotImplementedException();
-        }
-
-        public ValueTask<IWrappedIdbTransaction?> GetTransactionAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public ValueTask SetOnBlockedAsync(EventObjectOfIdbRequestOfIdbDatabase? callbackObject)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ValueTask SetOnErrorAsync(EventObjectOfIdbRequestOfIdbDatabase? callbackObject)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ValueTask SetOnSuccessAsync(EventObjectOfIdbRequestOfIdbDatabase? callbackObject)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ValueTask SetOnUpgradeNeededAsync(EventObjectOfIdbRequestOfIdbDatabase? callbackObject)
-        {
-            throw new NotImplementedException();
+            await this.WrappedObject.InvokeVoidAsync("setOnUpgradeNeeded", callbackObject);
         }
     }
 }

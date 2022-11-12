@@ -11,9 +11,10 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.EventObjects
 {
     public sealed class EventObjectOfIdbRequestOfValue<T> : IDisposable
     {
-        private readonly JsEventHandler<IWrappedIdbRequestOfValue<T>> handler;
+        private readonly JsEventHandler<IWrappedIdbRequestOfValue<T>, EventObjectOfIdbRequestOfValue<T>> handler;
 
-        public EventObjectOfIdbRequestOfValue(JsEventHandler<IWrappedIdbRequestOfValue<T>> handler)
+        public EventObjectOfIdbRequestOfValue(
+            JsEventHandler<IWrappedIdbRequestOfValue<T>, EventObjectOfIdbRequestOfValue<T>> handler)
         {
             this.handler = handler;
             this.Object = DotNetObjectReference.Create(this);
@@ -26,7 +27,7 @@ namespace Nololiyt.IndexedDbSharp.Raw.CSharp.Async.EventObjects
         {
             await using var s = new WrappedIdbRequestOfValue<T>(self);
             await using var e = new WrappedEvent(ev);
-            await handler(s, e);
+            await handler(s, e, this);
         }
 
         public void Dispose()

@@ -1,0 +1,54 @@
+﻿@page "/test7"
+
+<div>Loaded. Results are in the console.</div>
+
+@inject ILogger<Test2> Logger
+@code
+{
+    protected override async Task OnInitializedAsync()
+    {
+        await using var module = await GetModule();
+        {
+            try
+            {
+                await module.InvokeVoidAsync("testFunction1");
+            }
+            catch (JSException ex)
+            {
+                Logger.LogWarning("1. {ex}", ex);
+            }
+        }
+        {
+            try
+            {
+                await module.InvokeVoidAsync("testFunction2");
+            }
+            catch (JSException ex)
+            {
+                Logger.LogWarning("2. {ex}", ex);
+            }
+        }
+        {
+            try
+            {
+                await module.InvokeVoidAsync("testFunction3");
+            }
+            catch (JSException ex)
+            {
+                Logger.LogWarning("3. {ex}", ex);
+            }
+        }
+    }
+}
+
+<PageTitle>Test</PageTitle>
+@inject IJSRuntime js
+@code {
+    private async Task<IJSObjectReference> GetModule()
+    {
+        var typeName = this.GetType().Name;
+        return await js.InvokeAsync<IJSObjectReference>(
+            "import",
+            $"./generated/scripts/{typeName}.js");
+    }
+}
